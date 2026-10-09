@@ -146,7 +146,12 @@ module.exports = async function handler(req, res) {
   const requestBody = JSON.stringify({
     systemInstruction: { parts: [{ text: system }] },
     contents: geminiContents,
-    generationConfig: { maxOutputTokens: 400 },
+    generationConfig: {
+      maxOutputTokens: 700,
+      // Keep "thinking" short so the token budget goes to the visible answer,
+      // not hidden reasoning. Models that don't support this field ignore it.
+      thinkingConfig: { thinkingLevel: "low" },
+    },
   });
 
   let lastStatus = null;
@@ -167,9 +172,7 @@ module.exports = async function handler(req, res) {
         lastStatus = geminiRes.status;
         lastErrText = await geminiRes.text();
         console.error(`Gemini API error (model ${model}):`, lastStatus, lastErrText);
-        // Overloaded or rate-limited — try the next fallback model.
-        if (lastStatus === 503 || lastStatus === 429) continue;
-        break; // any other error (bad request, auth, etc.) won't be fixed by switching models
+        continue; // try the next fallback model regardless of error type
       }
 
       const data = await geminiRes.json();
@@ -179,7 +182,14 @@ module.exports = async function handler(req, res) {
         .join("\n")
         .trim();
 
-      res.status(200).json({ error: false, text: text || "" });
+      if (!text) {
+        lastStatus = "empty_response";
+        lastErrText = JSON.stringify(data).slice(0, 500);
+        console.error(`Gemini API returned empty text (model ${model}):`, lastErrText);
+        continue; // likely truncated by the token budget — try the next model
+      }
+
+      res.status(200).json({ error: false, text });
       return;
     } catch (err) {
       console.error(`Chat handler error (model ${model}):`, err);
