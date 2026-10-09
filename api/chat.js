@@ -9,7 +9,7 @@
 // friendly error instead of crashing. The model name can be overridden with the optional
 // GEMINI_MODEL environment variable.
 
-const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.0-flash";
+const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
 
 const PROFILE_CONTEXT = `
 You are the AI assistant embedded on Ahmed Adel Mohammed's personal portfolio website.
