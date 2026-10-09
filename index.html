@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ahmed Adel Mohammed</title>
+<meta name="description" content="Accounting Manager with 8+ years across real estate & leasing, F&B, import/export and construction — financial reporting, cash flow, internal controls and ERP (Odoo/SAP).">
+<link rel="canonical" href="https://ahmed-adel-mohammed.vercel.app/">
+<meta name="theme-color" content="#0B0D0C">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="256x256" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Ahmed Adel Mohammed — Accounting Manager">
+<meta property="og:description" content="Financial reporting, cash flow & treasury, internal controls and ERP (Odoo/SAP). 8+ years across real estate, F&B, import/export and construction.">
+<meta property="og:image" content="https://ahmed-adel-mohammed.vercel.app/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://ahmed-adel-mohammed.vercel.app/">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ar_EG">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ahmed Adel Mohammed — Accounting Manager">
+<meta name="twitter:description" content="Financial reporting, cash flow & treasury, internal controls and ERP (Odoo/SAP).">
+<meta name="twitter:image" content="https://ahmed-adel-mohammed.vercel.app/og-image.jpg">
+
+<style>
+  /*
+    Layout concept: a ledger margin over a fixed portrait. One photo sits
+    pinned behind the whole page (viewport-fixed, not section-bound) the way
+    a watermark sits under a ledger page; a column-pad rule runs down the
+    content, and each panel of content is a translucent leaf laid over the
+    photo. Numbers mark only the two genuine sequences — engagement steps,
+    career history in order.
+  */
+  :root{
+    --bg:#0B0D0C;
+    --bg-raised:#171E1A;
+    --panel:rgba(10,13,12,.84);
+    --panel-strong:rgba(7,9,8,.92);
+    --rule:rgba(240,242,236,.16);
+    --ink:#F1F3EC;
+    --ink-muted:#B6C0B3;
+    --accent:#E7B768;
+    --accent-2:#63B7A6;
+    --font-display:'Fraunces', Georgia, 'Times New Roman', serif;
+    --font-body:'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-mono:'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+    color-scheme: dark;
+  }
+  [dir="rtl"]{
+    --font-display:'IBM Plex Sans Arabic','Segoe UI',sans-serif;
+    --font-body:'IBM Plex Sans Arabic','Segoe UI',sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-body); line-height:1.6;
+    padding-inline:20px; position:relative;
+  }
+  body::before{
+    content:''; position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:
+      linear-gradient(180deg, rgba(5,6,6,.25) 0%, rgba(5,6,6,.55) 55%, rgba(5,6,6,.82) 100%),
+      url('site-bg.jpg') center 20% / cover no-repeat;
+  }
+  main, header.site, footer.site{max-width:760px; margin-inline:auto}
+  h1,h2,h3{font-family:var(--font-display); font-weight:600; text-wrap:balance; margin:0}
+  p{margin:0}
+  a{color:var(--accent-2)}
+  ::selection{background:var(--accent); color:var(--bg)}
+  @media (prefers-reduced-motion: no-preference){
+    .tile, .nav a, .lang button, .copybtn{transition:transform .15s ease, background-color .15s ease, border-color .15s ease}
+  }
+  :focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+
+  /* header */
+  header.site{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding-block:18px; position:sticky; top:env(safe-area-inset-top,0px);
+    background:var(--panel-strong); z-index:5; border-bottom:1px solid var(--rule);
+    flex-wrap:wrap;
+  }
+  .brand{font-family:var(--font-display); font-weight:600; font-size:1.05rem; white-space:nowrap}
+  nav.nav{display:flex; gap:20px; flex-wrap:wrap}
+  nav.nav a{color:var(--ink); text-decoration:none; font-size:.95rem; border-bottom:1px solid transparent}
+  nav.nav a:hover{border-bottom-color:var(--accent)}
+  .lang{display:flex; border:1px solid var(--rule); border-radius:4px; overflow:hidden}
+  .lang button{
+    font-family:var(--font-mono); font-size:.8rem; padding:6px 10px; border:0; background:transparent; color:var(--ink-muted); cursor:pointer;
+  }
+  .lang button[aria-pressed="true"]{background:var(--ink); color:var(--bg)}
+
+  /* ledger rule + content rhythm */
+  .page{position:relative}
+  .page::before{
+    content:''; position:absolute; inset-inline-start:0; top:0; bottom:0; width:1px; background:var(--rule);
+  }
+  @media (max-width:640px){ .page::before{ display:none } }
+  section{
+    padding-inline-start:28px; padding-block:44px; border-top:1px solid var(--rule);
+    background:var(--panel);
+  }
+  @media (max-width:640px){
+    section{ padding-inline-start:16px; padding-inline-end:16px; margin-inline:-20px }
+    header.site, footer.site{ margin-inline:-20px; padding-inline:16px }
+  }
+  section:first-of-type{border-top:0}
+  .folio{
+    font-family:var(--font-mono); font-size:.78rem; color:var(--accent); display:block; margin-bottom:10px;
+  }
+  .section-head{max-width:62ch; margin-bottom:28px}
+  .section-head h2{font-size:clamp(1.35rem,2.4vw,1.7rem)}
+  .section-head p{color:var(--ink-muted); margin-top:10px; max-width:58ch}
+
+  /* hero — transparent panel, the fixed photo behind the whole page shows through here almost fully */
+  .hero{
+    padding-block-start:96px; padding-block-end:64px;
+    background:linear-gradient(180deg, rgba(5,6,6,0) 0%, rgba(5,6,6,.3) 70%, rgba(5,6,6,.6) 100%);
+    border-top:0;
+  }
+  .hero h1{font-size:clamp(2rem,6vw,3rem); letter-spacing:-.01em; color:#F4F1E7}
+  .hero .role{font-family:var(--font-mono); color:#E8C978; font-size:.95rem; margin-top:14px}
+  .hero .lead{max-width:58ch; margin-top:18px; font-size:1.08rem; color:#DCE3D7}
+  .hero .meta{margin-top:20px; font-size:.9rem; color:#C3CCBE}
+  .hero .btn.ghost{color:#F4F1E7; border-color:rgba(244,241,231,.5)}
+  .hero .btn.ghost:hover{border-color:#F4F1E7}
+  .cta-row{display:flex; gap:14px; margin-top:28px; flex-wrap:wrap}
+  .btn{
+    font-family:var(--font-body); font-size:.92rem; font-weight:500; padding:11px 20px; border-radius:4px;
+    text-decoration:none; display:inline-block; cursor:pointer; border:1px solid var(--ink);
+  }
+  .btn.primary{background:var(--ink); color:var(--bg)}
+  .btn.ghost{background:transparent; color:var(--ink); border-color:var(--rule)}
+  .btn:hover{transform:translateY(-1px)}
+
+  /* ticker */
+  .ticker{display:flex; flex-wrap:wrap; gap:0}
+  .ticker span{
+    font-size:.92rem; color:var(--ink-muted); padding-inline:18px; border-inline-start:1px solid var(--rule);
+  }
+  .ticker span:first-child{border-inline-start:0; padding-inline-start:0}
+
+  /* about numbered steps */
+  .steps{display:flex; flex-direction:column; gap:22px; margin-top:4px}
+  .step{display:flex; gap:16px}
+  .step .n{font-family:var(--font-mono); color:var(--accent); min-width:1.6em}
+  .step p{color:var(--ink)}
+
+  /* approach cards (true sequence) */
+  .approach-list{display:flex; flex-direction:column}
+  .approach-item{padding-block:24px; border-top:1px solid var(--rule)}
+  .approach-item:first-child{border-top:0; padding-top:0}
+  .approach-item .n{font-family:var(--font-mono); color:var(--accent); font-size:.85rem}
+  .approach-item h3{font-size:1.15rem; margin-top:6px}
+  .approach-item ul{margin:12px 0 0; padding-inline-start:1.1em; color:var(--ink-muted); font-size:.95rem}
+  .approach-item li{margin-block:4px}
+  .approach-item .line{margin-top:12px; font-size:.95rem; color:var(--ink)}
+
+  /* achievements */
+  .tiles{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule)}
+  @media (min-width:560px){ .tiles{grid-template-columns:repeat(4,1fr)} }
+  .tile{background:var(--bg); padding:20px 16px; min-width:0}
+  .tile .num{font-family:var(--font-mono); font-size:1.5rem; color:var(--accent); font-variant-numeric:tabular-nums}
+  .tile .cap{font-size:.82rem; color:var(--ink-muted); margin-top:8px; line-height:1.4}
+
+  /* experience / work */
+  .work-list{display:flex; flex-direction:column}
+  .work-item{padding-block:26px; border-top:1px solid var(--rule)}
+  .work-item:first-child{border-top:0; padding-top:0}
+  .work-item .n{font-family:var(--font-mono); color:var(--accent); font-size:.85rem}
+  .work-head{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-top:6px}
+  .work-head h3{font-size:1.15rem}
+  .work-meta{font-size:.85rem; color:var(--ink-muted); font-family:var(--font-mono); white-space:nowrap}
+  .work-sector{font-size:.9rem; color:var(--accent-2); margin-top:4px}
+  .work-line{margin-top:10px; color:var(--ink)}
+  .work-item ul{margin:12px 0 0; padding-inline-start:1.1em; color:var(--ink-muted); font-size:.95rem}
+  .work-item li{margin-block:4px}
+
+  /* systems & skills */
+  .pillrow{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
+  .pill{
+    font-size:.85rem; padding:6px 11px; border:1px solid var(--rule); border-radius:4px; color:var(--ink);
+    font-family:var(--font-body);
+  }
+  .pill-label{font-family:var(--font-mono); font-size:.78rem; color:var(--ink-muted); margin-top:22px; display:block}
+  .pill-label:first-child{margin-top:0}
+
+  /* credentials */
+  .cred-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px}
+  .cred-list li{padding-inline-start:0; display:flex; gap:12px; align-items:baseline}
+  .cred-list .dot{width:5px; height:5px; border-radius:50%; background:var(--accent-2); flex:none; margin-top:9px}
+  .cred-line{color:var(--ink)}
+  .cred-sub{display:block; font-size:.85rem; color:var(--ink-muted); margin-top:2px}
+  .langs{margin-top:20px; font-size:.9rem; color:var(--ink-muted)}
+
+  /* tool */
+  .tool-box{
+    border:1px solid var(--rule); border-radius:6px; padding:22px; margin-top:6px; background:var(--bg-raised);
+  }
+  .tool-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px}
+  @media (max-width:480px){ .tool-grid{grid-template-columns:1fr} }
+  .field label{display:block; font-size:.82rem; color:var(--ink-muted); margin-bottom:6px}
+  .field input{
+    width:100%; font-family:var(--font-mono); font-size:1rem; padding:10px 12px; border:1px solid var(--rule);
+    border-radius:4px; background:var(--bg); color:var(--ink); font-variant-numeric:tabular-nums;
+  }
+  .tool-result{margin-top:20px}
+  .tool-result .figure{font-family:var(--font-mono); font-size:1.6rem; color:var(--accent); font-variant-numeric:tabular-nums}
+  .bar-track{height:8px; border-radius:4px; background:var(--rule); margin-top:10px; overflow:hidden}
+  .bar-fill{height:100%; background:var(--accent-2); width:0%; border-radius:4px}
+  @media (prefers-reduced-motion: no-preference){ .bar-fill{transition:width .4s ease} }
+  .tool-note{font-size:.85rem; color:var(--ink-muted); margin-top:16px; max-width:56ch}
+
+  /* contact */
+  .contact-rows{display:flex; flex-direction:column; gap:16px; margin-top:22px}
+  .contact-row{display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+  .contact-row .k{font-family:var(--font-mono); font-size:.82rem; color:var(--ink-muted); min-width:7em}
+  .contact-row .v{font-size:1rem}
+  .copybtn{
+    font-family:var(--font-mono); font-size:.78rem; padding:5px 10px; border:1px solid var(--rule); border-radius:4px;
+    background:transparent; color:var(--ink-muted); cursor:pointer;
+  }
+  .copybtn:hover{border-color:var(--accent); color:var(--accent)}
+
+  footer.site{
+    padding-block:32px; padding-inline:20px; border-top:1px solid var(--rule); font-size:.85rem; color:var(--ink-muted);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    background:var(--panel-strong);
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+</head>
+<body>
+
+<header class="site">
+  <div class="brand">Ahmed Adel Mohammed</div>
+  <nav class="nav">
+    <a href="#approach" data-i18n="nav_approach">Approach</a>
+    <a href="#work" data-i18n="nav_work">Work</a>
+    <a href="#about" data-i18n="nav_about">About</a>
+    <a href="#contact" data-i18n="nav_contact">Contact</a>
+  </nav>
+  <div class="lang" role="group" aria-label="Language">
+    <button id="btn-en" aria-pressed="true" onclick="setLang('en')">EN</button>
+    <button id="btn-ar" aria-pressed="false" onclick="setLang('ar')">ع</button>
+  </div>
+</header>
+
+<main class="page">
+
+  <section class="hero">
+    <h1 data-i18n="hero_name">Ahmed Adel Mohammed</h1>
+    <div class="role" data-i18n="hero_role">Accounting Manager — Financial Reporting · Cash Flow &amp; Treasury · Internal Controls · ERP (Odoo / SAP)</div>
+    <p class="lead" data-i18n="hero_lead">I build accounting functions from the ground up, then the financial models senior teams use to decide what happens next.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="#work" data-i18n="hero_cta1">See the experience</a>
+      <a class="btn ghost" href="#contact" data-i18n="hero_cta2">Get in touch</a>
+      <a class="btn ghost" href="Ahmed-Adel-Mohammed-CV.pdf" download data-i18n="hero_cta3">Download CV</a>
+    </div>
+    <p class="meta" data-i18n="hero_meta">Cairo, Egypt — open to relocation (GCC)</p>
+  </section>
+
+  <section class="ticker" id="ticker-row" aria-label="Operating principles"></section>
+
+  <section id="about">
+    <div class="section-head">
+      <h2 data-i18n="about_h">About</h2>
+      <p data-i18n="about_lead">An Accounting Manager who sets up what doesn't exist yet, then runs it.</p>
+    </div>
+    <div class="steps" id="about-steps"></div>
+    <p class="meta" style="margin-top:22px" data-i18n="about_meta">8+ years · real estate &amp; leasing, food &amp; beverage, import/export, construction, tax advisory</p>
+  </section>
+
+  <section id="approach">
+    <div class="section-head">
+      <h2 data-i18n="approach_h">Three jobs, in order</h2>
+      <p data-i18n="approach_lead">A function has to be built before it can run, and it has to run cleanly before anyone trusts its numbers enough to decide on them.</p>
+    </div>
+    <div class="approach-list" id="approach-list"></div>
+  </section>
+
+  <section id="results">
+    <div class="section-head">
+      <h2 data-i18n="results_h">Selected results</h2>
+    </div>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <section id="work">
+    <div class="section-head">
+      <h2 data-i18n="work_h">Five companies, one way of working</h2>
+      <p data-i18n="work_lead">Different industries, different problems — the same discipline each time: see what's actually happening, fix the system, report it straight.</p>
+    </div>
+    <div class="work-list" id="work-list"></div>
+  </section>
+
+  <section id="systems">
+    <div class="section-head">
+      <h2 data-i18n="systems_h">Systems &amp; core skills</h2>
+    </div>
+    <span class="pill-label" data-i18n="systems_label">Systems</span>
+    <div class="pillrow" id="systems-pills"></div>
+    <span class="pill-label" data-i18n="skills_label">Skills</span>
+    <div class="pillrow" id="skills-pills"></div>
+  </section>
+
+  <section id="credentials">
+    <div class="section-head">
+      <h2 data-i18n="cred_h">Certifications &amp; education</h2>
+    </div>
+    <ul class="cred-list" id="cred-list"></ul>
+    <p class="langs" id="langs-line"></p>
+  </section>
+
+  <section id="tool">
+    <div class="section-head">
+      <h2 data-i18n="tool_h">A quick one: how long does your cash last?</h2>
+      <p data-i18n="tool_lead">Cash on hand divided by monthly burn equals runway. The models I build for clients go further — scenarios, financing, seasonality — but this is the first number worth knowing.</p>
+    </div>
+    <div class="tool-box">
+      <div class="tool-grid">
+        <div class="field">
+          <label for="cashInput" data-i18n="tool_cash">Cash on hand (EGP)</label>
+          <input id="cashInput" type="number" inputmode="decimal" min="0" value="1200000">
+        </div>
+        <div class="field">
+          <label for="burnInput" data-i18n="tool_burn">Average monthly burn (EGP)</label>
+          <input id="burnInput" type="number" inputmode="decimal" min="0" value="300000">
+        </div>
+      </div>
+      <div class="tool-result">
+        <div class="figure" id="runwayFigure">4.0</div>
+        <div class="bar-track"><div class="bar-fill" id="runwayBar"></div></div>
+      </div>
+      <p class="tool-note" data-i18n="tool_note">Rough guide only — it assumes burn stays flat and ignores incoming receivables.</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-head">
+      <h2 data-i18n="contact_h">Let's talk numbers</h2>
+      <p data-i18n="contact_lead">Open to full-time Accounting Manager / Finance Manager roles, and to select freelance financial-modeling or reporting engagements.</p>
+    </div>
+    <div class="contact-rows">
+      <div class="contact-row">
+        <span class="k" data-i18n="contact_email_k">Email</span>
+        <span class="v">ahmedamohmed45@gmail.com</span>
+        <button class="copybtn" data-copy="ahmedamohmed45@gmail.com" onclick="copyText(this)" data-i18n="copy">Copy</button>
+      </div>
+      <div class="contact-row">
+        <span class="k" data-i18n="contact_phone_k">Phone</span>
+        <span class="v">+20 102 628 6048</span>
+        <button class="copybtn" data-copy="+201026286048" onclick="copyText(this)" data-i18n="copy">Copy</button>
+      </div>
+      <div class="contact-row">
+        <span class="k">LinkedIn</span>
+        <a class="v" href="https://www.linkedin.com/in/ahmed-adel-mohammed1" target="_blank" rel="noopener">linkedin.com/in/ahmed-adel-mohammed1</a>
+      </div>
+      <div class="contact-row">
+        <span class="k" data-i18n="contact_loc_k">Location</span>
+        <span class="v" data-i18n="contact_loc_v">Cairo, Egypt — open to relocation (GCC)</span>
+      </div>
+      <div class="contact-row">
+        <span class="k" data-i18n="contact_cv_k">CV</span>
+        <a class="v" href="Ahmed-Adel-Mohammed-CV.pdf" download data-i18n="contact_cv_v">Download PDF</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <span data-i18n="footer_role">Ahmed Adel Mohammed — Accounting Manager · Portfolio, 2026</span>
+  <span>© 2026</span>
+</footer>
+
+<script>
+const T = {
+en: {
+  nav_approach:"Approach", nav_work:"Work", nav_about:"About", nav_contact:"Contact",
+  hero_name:"Ahmed Adel Mohammed",
+  hero_role:"Accounting Manager — Financial Reporting · Cash Flow & Treasury · Internal Controls · ERP (Odoo / SAP)",
+  hero_lead:"I build accounting functions from the ground up, then the financial models senior teams use to decide what happens next.",
+  hero_cta1:"See the experience", hero_cta2:"Get in touch", hero_cta3:"Download CV",
+  hero_meta:"Cairo, Egypt — open to relocation (GCC)",
+  ticker:["Controls before growth","Cash before profit","One ERP, one source of truth","A model you can question"],
+  about_h:"About",
+  about_lead:"An Accounting Manager who sets up what doesn't exist yet, then runs it.",
+  about_steps:[
+    "I start with what the business actually has: in the books, in the contracts, in the cash. Most of what breaks later was missed here.",
+    "I design the chart of accounts, the controls and the reporting cycle, and put them to work inside the ERP the business already runs on.",
+    "I close the books every month without surprises, and build the models — cash flow, IRR, NPV — that turn the numbers into a decision."
+  ],
+  about_meta:"8+ years · real estate & leasing, food & beverage, import/export, construction, tax advisory",
+  approach_h:"Three jobs, in order",
+  approach_lead:"A function has to be built before it can run, and it has to run cleanly before anyone trusts its numbers enough to decide on them.",
+  approach:[
+    {t:"Accounting function setup", items:["Chart of accounts & procedures","Internal controls design","ERP implementation (Odoo / SAP)"], line:"A system built to hold up under audit review."},
+    {t:"Reporting & treasury", items:["Month-end & year-end close","Cash flow & liquidity planning","Receivables, collections & cheques"], line:"Numbers that close on schedule, and a cash position visible two months ahead."},
+    {t:"Financial modeling", items:["Feasibility studies (P&L, cash flow, IRR, NPV)","Budget vs. actual & variance","Management reporting for decisions"], line:"A model management can question, not just read."}
+  ],
+  results_h:"Selected results",
+  tiles:[
+    {n:"−70%", c:"accounting errors, after redesigning controls and automating reconciliations"},
+    {n:"+40%", c:"liquidity improvement through cash-flow forecasting models"},
+    {n:"−50%", c:"processing time via Foodics POS – Odoo ERP integration"},
+    {n:"−35%", c:"overdue customer balances through structured collections follow-up"}
+  ],
+  work_h:"Five companies, one way of working",
+  work_lead:"Different industries, different problems — the same discipline each time: see what's actually happening, fix the system, report it straight.",
+  work:[
+    {co:"Meadis Group", sector:"Real Estate, Commercial Leasing & Property Projects · Egypt", dates:"Sep 2026 – Present",
+     line:"Building an accounting function that didn't exist yet, for a group managing contracts across multiple properties and shops.",
+     items:["Set up the accounting team, procedures and controls from scratch","Manage tenant receivables, collections and post-dated cheques across sites","Build feasibility models (P&L, cash flow, IRR, NPV) for the project portfolio","Prepare consolidated cash-flow and liquidity projections for senior management"]},
+    {co:"Roufy's", sector:"Food & Beverage, multi-branch restaurants · Cairo", dates:"Jan – Aug 2026",
+     line:"An ERP rollout across every branch, and the controls to make its numbers trustworthy.",
+     items:["Led the Odoo ERP setup from scratch, chart of accounts to daily workflow","Supervised a team of 5 across AP, AR, payroll and treasury","Cut accounting errors 70% through redesigned controls and automated reconciliations","Integrated Foodics POS with Odoo, cutting processing time 50%"]},
+    {co:"Tiba International S.A.E.", sector:"Import, Export & Printing Supplies · Cairo", dates:"Jan – Dec 2025",
+     line:"Tightening collections across foreign suppliers and local and international customers.",
+     items:["Supervised a team of 4 across customer, supplier, customs and shipping accounts","Managed procure-to-pay and order-to-cash, including customs and freight","Cut overdue balances 35% through reconciliation and structured follow-up","Kept VAT and e-invoicing compliant and on time"]},
+    {co:"Al-Atlal Contracting Company", sector:"Construction & Contracting · Makkah, Saudi Arabia", dates:"Jan 2022 – Dec 2024",
+     line:"Project accounting for a construction site, where cost control is the project.",
+     items:["Led a team of 7 accountants across project sites","Tracked materials, labour, subcontractor and equipment costs for profitability","Managed Zakat and VAT filings and supported external audits","Maintained the fixed-asset register and depreciation under IFRS"]},
+    {co:"Concept Tax Auditing & Consulting Office", sector:"Accounting, Audit & Tax Advisory · Cairo", dates:"Feb 2018 – Dec 2021",
+     line:"Where the compliance habits came from.",
+     items:["Filed income tax, VAT, payroll and withholding tax returns","Implemented e-invoicing for clients, from onboarding to compliance","Supported statutory audits and prepared statements under Egyptian Accounting Standards and IFRS"]}
+  ],
+  systems_h:"Systems & core skills",
+  systems_label:"Systems", skills_label:"Skills",
+  systems:["Odoo ERP","SAP","QuickBooks","Foodics POS","Advanced Excel (financial modeling)"],
+  skills:["Financial Reporting","Cash Flow & Treasury","Month-End & Year-End Close","Budgeting & Forecasting","Internal Controls","Receivables, Collections & Cheques","Cost Control","Financial Modeling (IRR / NPV)","AP / AR","IFRS","VAT","Zakat","E-Invoicing","Team Leadership (up to 7)"],
+  cred_h:"Certifications & education",
+  creds:[
+    {l:"Private Equity and Venture Capital", s:"ExecuFinity / International Accreditation Organization — Oct 2026"},
+    {l:"Cash Flow Mastery for Scaling Businesses", s:"ExecuFinity — Oct 2026"},
+    {l:"Preparing External Financial Reports", s:"CMA preparation track — in progress"},
+    {l:"Accounting & Financial Management · Financial Accounting · Accounting Fundamentals", s:""},
+    {l:"Bachelor of Commerce, Accounting", s:"Helwan University, Cairo — 2020"}
+  ],
+  langs_line:"Languages: Arabic — native · English — professional working proficiency",
+  tool_h:"A quick one: how long does your cash last?",
+  tool_lead:"Cash on hand divided by monthly burn equals runway. The models I build for clients go further — scenarios, financing, seasonality — but this is the first number worth knowing.",
+  tool_cash:"Cash on hand (EGP)", tool_burn:"Average monthly burn (EGP)",
+  tool_months:"months of runway",
+  tool_note:"Rough guide only — it assumes burn stays flat and ignores incoming receivables.",
+  contact_h:"Let's talk numbers",
+  contact_lead:"Open to full-time Accounting Manager / Finance Manager roles, and to select freelance financial-modeling or reporting engagements.",
+  contact_email_k:"Email", contact_phone_k:"Phone", contact_loc_k:"Location",
+  contact_loc_v:"Cairo, Egypt — open to relocation (GCC)",
+  contact_cv_k:"CV", contact_cv_v:"Download PDF",
+  copy:"Copy", copied:"Copied",
+  footer_role:"Ahmed Adel Mohammed — Accounting Manager · Portfolio, 2026"
+},
+ar: {
+  nav_approach:"نهجي", nav_work:"الخبرات", nav_about:"نبذة", nav_contact:"تواصل",
+  hero_name:"أحمد عادل محمد",
+  hero_role:"مدير حسابات — تقارير مالية · تدفقات نقدية وخزينة · ضوابط داخلية · أنظمة ERP (Odoo / SAP)",
+  hero_lead:"أبني الإدارة المالية من الصفر، ثم أصمم النماذج المالية التي تعتمد عليها الإدارة العليا في اتخاذ القرار.",
+  hero_cta1:"اطّلع على الخبرات", hero_cta2:"تواصل معي", hero_cta3:"تحميل السيرة الذاتية",
+  hero_meta:"القاهرة، مصر — متاح للانتقال (دول الخليج)",
+  ticker:["الضبط قبل النمو","السيولة قبل الربح","نظام واحد، مصدر واحد للحقيقة","نموذج يمكن مناقشته"],
+  about_h:"نبذة",
+  about_lead:"مدير حسابات يُنشئ ما هو غير موجود، ثم يتولى تشغيله.",
+  about_steps:[
+    "أبدأ بفهم الوضع الفعلي للشركة: في الدفاتر، والعقود، والسيولة. معظم المشاكل التي تظهر لاحقًا يكون أصلها هنا.",
+    "أصمم شجرة الحسابات والضوابط الداخلية ودورة التقارير، وأفعّلها داخل نظام الـ ERP الذي تعمل به الشركة بالفعل.",
+    "أُقفل الحسابات شهريًا دون مفاجآت، وأبني النماذج المالية — التدفقات النقدية، معدل العائد الداخلي، صافي القيمة الحالية — التي تحوّل الأرقام إلى قرار."
+  ],
+  about_meta:"8+ سنوات خبرة · عقارات وتأجير تجاري، مطاعم ومشروبات، استيراد وتصدير، مقاولات، استشارات ضريبية",
+  approach_h:"ثلاث مهام بترتيب واحد",
+  approach_lead:"لا بد أن يُبنى النظام المحاسبي أولًا، ثم يعمل بسلاسة، حتى تصبح أرقامه موثوقة بما يكفي لاتخاذ قرار عليها.",
+  approach:[
+    {t:"إنشاء الإدارة المحاسبية", items:["شجرة الحسابات والإجراءات","تصميم الضوابط الداخلية","تطبيق أنظمة ERP (Odoo / SAP)"], line:"نظام يصمد أمام المراجعة."},
+    {t:"التقارير والخزينة", items:["الإقفال الشهري والسنوي","تخطيط التدفقات النقدية والسيولة","المديونيات والتحصيل والشيكات"], line:"أرقام تُقفل في موعدها، ووضع نقدي مرئي قبل شهرين من حدوثه."},
+    {t:"النمذجة المالية", items:["دراسات الجدوى (قوائم الدخل، التدفقات النقدية، IRR، NPV)","الموازنة التقديرية وتحليل الانحرافات","تقارير إدارية لدعم القرار"], line:"نموذج تستطيع الإدارة مناقشته، لا مجرد قراءته."}
+  ],
+  results_h:"نتائج مُحققة",
+  tiles:[
+    {n:"−70%", c:"أخطاء محاسبية، بعد إعادة تصميم الضوابط وأتمتة التسويات"},
+    {n:"+40%", c:"تحسّن في السيولة من خلال نماذج التنبؤ بالتدفقات النقدية"},
+    {n:"−50%", c:"وقت المعالجة عبر ربط Foodics POS بنظام Odoo"},
+    {n:"−35%", c:"انخفاض في أرصدة العملاء المتأخرة عبر متابعة تحصيل منظمة"}
+  ],
+  work_h:"خمس شركات، أسلوب عمل واحد",
+  work_lead:"قطاعات مختلفة ومشاكل مختلفة — لكن نفس المنهج في كل مرة: فهم الوضع الفعلي، إصلاح النظام، ثم تقرير دقيق.",
+  work:[
+    {co:"مجموعة Meadis", sector:"عقارات وتأجير تجاري ومشروعات عقارية · مصر", dates:"سبتمبر 2026 – حتى الآن",
+     line:"بناء إدارة محاسبية لم تكن موجودة، لمجموعة تدير عقودًا عبر عدة عقارات ومحلات.",
+     items:["إنشاء فريق المحاسبة والإجراءات والضوابط من الصفر","إدارة مديونيات المستأجرين والتحصيل ومحفظة الشيكات المؤجلة عبر مواقع متعددة","بناء نماذج جدوى (قوائم دخل، تدفقات نقدية، IRR، NPV) لمحفظة مشاريع المجموعة","إعداد توقعات التدفق النقدي والسيولة الموحدة للإدارة العليا"]},
+    {co:"Roufy's", sector:"مطاعم ومشروبات، فروع متعددة · القاهرة", dates:"يناير – أغسطس 2026",
+     line:"تطبيق نظام Odoo عبر كل الفروع، والضوابط التي تجعل أرقامه موثوقة.",
+     items:["قيادة إنشاء نظام Odoo من الصفر، من شجرة الحسابات إلى سير العمل اليومي","الإشراف على فريق من 5 أفراد في الحسابات الدائنة والمدينة والرواتب والخزينة","خفض الأخطاء المحاسبية 70% عبر إعادة تصميم الضوابط وأتمتة التسويات","ربط Foodics POS بنظام Odoo، ما خفّض وقت المعالجة 50%"]},
+    {co:"Tiba International S.A.E.", sector:"استيراد وتصدير ومستلزمات طباعة · القاهرة", dates:"يناير – ديسمبر 2025",
+     line:"إحكام التحصيل عبر الموردين الأجانب والعملاء المحليين والدوليين.",
+     items:["الإشراف على فريق من 4 أفراد في حسابات العملاء والموردين والجمارك والشحن","إدارة دورة الشراء حتى السداد والبيع حتى التحصيل، شاملة فواتير الجمارك والشحن","خفض الأرصدة المتأخرة 35% عبر التسوية والمتابعة المنظمة","الالتزام بضريبة القيمة المضافة والفاتورة الإلكترونية في مواعيدها"]},
+    {co:"شركة الأطلال للمقاولات", sector:"مقاولات · مكة المكرمة، السعودية", dates:"يناير 2022 – ديسمبر 2024",
+     line:"محاسبة مشاريع في موقع مقاولات، حيث ضبط التكلفة هو المشروع نفسه.",
+     items:["قيادة فريق من 7 محاسبين عبر مواقع المشاريع","متابعة تكاليف المواد والعمالة والمقاولين من الباطن والمعدات لربحية المشروع","الإشراف على التزامات الزكاة وضريبة القيمة المضافة ودعم المراجعة الخارجية","الاحتفاظ بسجل الأصول الثابتة والإهلاك الشهري وفق معايير IFRS"]},
+    {co:"مكتب Concept للمحاسبة والمراجعة والاستشارات الضريبية", sector:"محاسبة ومراجعة واستشارات ضريبية · القاهرة", dates:"فبراير 2018 – ديسمبر 2021",
+     line:"من هنا بدأت عادات الالتزام الضريبي.",
+     items:["إعداد وتقديم إقرارات ضريبة الدخل والقيمة المضافة والرواتب والخصم من المنبع","تطبيق نظام الفاتورة الإلكترونية للعملاء من التسجيل حتى الالتزام الكامل","دعم المراجعات القانونية وإعداد القوائم المالية وفق المعايير المصرية ومعايير IFRS"]}
+  ],
+  systems_h:"الأنظمة والمهارات الأساسية",
+  systems_label:"الأنظمة", skills_label:"المهارات",
+  systems:["Odoo ERP","SAP","QuickBooks","Foodics POS","إكسل متقدم (نمذجة مالية)"],
+  skills:["تقارير مالية","تدفقات نقدية وخزينة","إقفال شهري وسنوي","موازنات وتنبؤات","ضوابط داخلية","مديونيات وتحصيل وشيكات","ضبط التكلفة","نمذجة مالية (IRR / NPV)","حسابات دائنة ومدينة","IFRS","ضريبة القيمة المضافة","الزكاة","الفاتورة الإلكترونية","قيادة فرق (حتى 7 أفراد)"],
+  cred_h:"الشهادات والتعليم",
+  creds:[
+    {l:"Private Equity and Venture Capital", s:"ExecuFinity / International Accreditation Organization — أكتوبر 2026"},
+    {l:"Cash Flow Mastery for Scaling Businesses", s:"ExecuFinity — أكتوبر 2026"},
+    {l:"إعداد التقارير المالية الخارجية", s:"ضمن مسار التحضير لشهادة CMA — قيد الإنجاز"},
+    {l:"المحاسبة والإدارة المالية · المحاسبة المالية · أساسيات المحاسبة", s:""},
+    {l:"بكالوريوس تجارة، محاسبة", s:"جامعة حلوان، القاهرة — 2020"}
+  ],
+  langs_line:"اللغات: العربية — اللغة الأم · الإنجليزية — كفاءة مهنية",
+  tool_h:"سؤال سريع: كم تدوم سيولتك؟",
+  tool_lead:"النقدية المتاحة ÷ متوسط الصرف الشهري = مدة الاستمرارية. النماذج التي أبنيها للعملاء تذهب لأبعد من ذلك — سيناريوهات وتمويل وموسمية — لكن هذا أول رقم يستحق المعرفة.",
+  tool_cash:"النقدية المتاحة (جنيه)", tool_burn:"متوسط الصرف الشهري (جنيه)",
+  tool_months:"شهر من الاستمرارية",
+  tool_note:"رقم تقريبي فقط — يفترض ثبات معدل الصرف ولا يحتسب التحصيل المتوقع.",
+  contact_h:"لنتحدث بالأرقام",
+  contact_lead:"متاح لوظائف دائمة كمدير حسابات / مدير مالي، وكذلك لأعمال استشارية مختارة في النمذجة المالية والتقارير.",
+  contact_email_k:"البريد", contact_phone_k:"الهاتف", contact_loc_k:"الموقع",
+  contact_loc_v:"القاهرة، مصر — متاح للانتقال (دول الخليج)",
+  contact_cv_k:"السيرة الذاتية", contact_cv_v:"تحميل PDF",
+  copy:"نسخ", copied:"تم النسخ",
+  footer_role:"أحمد عادل محمد — مدير حسابات · بورتفوليو، 2026"
+}
+};
+
+let currentLang = 'en';
+
+function renderList(id, arr, html){ document.getElementById(id).innerHTML = arr.map(html).join(''); }
+
+function render(lang){
+  const t = T[lang];
+  document.documentElement.setAttribute('lang', lang);
+  document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+  document.getElementById('btn-en').setAttribute('aria-pressed', String(lang==='en'));
+  document.getElementById('btn-ar').setAttribute('aria-pressed', String(lang==='ar'));
+
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+
+  renderList('ticker-row', t.ticker, s => `<span>${s}</span>`);
+  renderList('about-steps', t.about_steps, (s,i)=>`<div class="step"><span class="n">${String(i+1).padStart(2,'0')}</span><p>${s}</p></div>`);
+  renderList('approach-list', t.approach, (a,i)=>`
+    <div class="approach-item">
+      <span class="n">${String(i+1).padStart(2,'0')}</span>
+      <h3>${a.t}</h3>
+      <ul>${a.items.map(x=>`<li>${x}</li>`).join('')}</ul>
+      <p class="line">${a.line}</p>
+    </div>`);
+  renderList('tiles', t.tiles, x=>`<div class="tile"><div class="num">${x.n}</div><div class="cap">${x.c}</div></div>`);
+  renderList('work-list', t.work, (w,i)=>`
+    <div class="work-item">
+      <span class="n">${String(i+1).padStart(2,'0')}</span>
+      <div class="work-head"><h3>${w.co}</h3><span class="work-meta">${w.dates}</span></div>
+      <div class="work-sector">${w.sector}</div>
+      <p class="work-line">${w.line}</p>
+      <ul>${w.items.map(x=>`<li>${x}</li>`).join('')}</ul>
+    </div>`);
+  renderList('systems-pills', t.systems, s=>`<span class="pill">${s}</span>`);
+  renderList('skills-pills', t.skills, s=>`<span class="pill">${s}</span>`);
+  renderList('cred-list', t.creds, c=>`<li><span class="dot"></span><div><span class="cred-line">${c.l}</span>${c.s?`<span class="cred-sub">${c.s}</span>`:''}</div></li>`);
+  document.getElementById('langs-line').textContent = t.langs_line;
+
+  document.querySelectorAll('.copybtn').forEach(b=> b.textContent = t.copy);
+
+  currentLang = lang;
+  updateRunway();
+}
+
+function setLang(lang){ render(lang); }
+
+function copyText(btn){
+  const text = btn.getAttribute('data-copy');
+  const original = btn.textContent;
+  const done = () => { btn.textContent = T[currentLang].copied; setTimeout(()=>{ btn.textContent = T[currentLang].copy; }, 1500); };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(()=>fallbackCopy(text, done));
+  } else {
+    fallbackCopy(text, done);
+  }
+}
+function fallbackCopy(text, cb){
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+  }catch(e){}
+  cb();
+}
+
+function updateRunway(){
+  const cash = parseFloat(document.getElementById('cashInput').value) || 0;
+  const burn = parseFloat(document.getElementById('burnInput').value) || 0;
+  const months = burn > 0 ? (cash / burn) : 0;
+  const t = T[currentLang];
+  document.getElementById('runwayFigure').textContent = months.toFixed(1) + ' ' + t.tool_months;
+  const pct = Math.max(0, Math.min(100, (months/24)*100));
+  document.getElementById('runwayBar').style.width = pct + '%';
+}
+document.getElementById('cashInput').addEventListener('input', updateRunway);
+document.getElementById('burnInput').addEventListener('input', updateRunway);
+
+render('en');
+</script>
+</body>
+</html>
