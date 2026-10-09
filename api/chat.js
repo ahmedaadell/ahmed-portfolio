@@ -7,9 +7,14 @@
 // Requires the GEMINI_API_KEY environment variable to be set in the Vercel project
 // (Project Settings -> Environment Variables). Without it, this function returns a
 // friendly error instead of crashing. The model name can be overridden with the optional
-// GEMINI_MODEL environment variable.
+// GEMINI_MODEL environment variable. On a 503 (model overloaded) or 429 (rate limited)
+// it automatically falls back through a short list of other free-tier Flash models.
 
-const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
+const GEMINI_MODELS = [
+  process.env.GEMINI_MODEL || "gemini-3.8-flash",
+  "gemini-3.7-flash",
+  "gemini-3.5-flash",
+].filter((v, i, arr) => arr.indexOf(v) === i); // de-dupe in case GEMINI_MODEL overrides to one of these
 
 const PROFILE_CONTEXT = `
 You are the AI assistant embedded on Ahmed Adel Mohammed's personal portfolio website.
@@ -138,49 +143,58 @@ module.exports = async function handler(req, res) {
     }));
   }
 
-  try {
-    const geminiRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: system }] },
-          contents: geminiContents,
-          generationConfig: { maxOutputTokens: 400 },
-        }),
+  const requestBody = JSON.stringify({
+    systemInstruction: { parts: [{ text: system }] },
+    contents: geminiContents,
+    generationConfig: { maxOutputTokens: 400 },
+  });
+
+  let lastStatus = null;
+  let lastErrText = null;
+
+  for (const model of GEMINI_MODELS) {
+    try {
+      const geminiRes = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: requestBody,
+        }
+      );
+
+      if (!geminiRes.ok) {
+        lastStatus = geminiRes.status;
+        lastErrText = await geminiRes.text();
+        console.error(`Gemini API error (model ${model}):`, lastStatus, lastErrText);
+        // Overloaded or rate-limited — try the next fallback model.
+        if (lastStatus === 503 || lastStatus === 429) continue;
+        break; // any other error (bad request, auth, etc.) won't be fixed by switching models
       }
-    );
 
-    if (!geminiRes.ok) {
-      const errText = await geminiRes.text();
-      console.error("Gemini API error:", geminiRes.status, errText);
-      res.status(200).json({
-        error: true,
-        message:
-          lang === "ar"
-            ? "في مشكلة مؤقتة في خدمة الذكاء الاصطناعي، جرب تاني بعد شوية."
-            : "The AI service hit a temporary issue — please try again shortly.",
-      });
+      const data = await geminiRes.json();
+      const text = (data?.candidates?.[0]?.content?.parts || [])
+        .filter((part) => typeof part.text === "string")
+        .map((part) => part.text)
+        .join("\n")
+        .trim();
+
+      res.status(200).json({ error: false, text: text || "" });
       return;
+    } catch (err) {
+      console.error(`Chat handler error (model ${model}):`, err);
+      lastStatus = "network_error";
+      lastErrText = String(err);
+      // Try the next model on a network-level failure too.
     }
-
-    const data = await geminiRes.json();
-    const text = (data?.candidates?.[0]?.content?.parts || [])
-      .filter((part) => typeof part.text === "string")
-      .map((part) => part.text)
-      .join("\n")
-      .trim();
-
-    res.status(200).json({ error: false, text: text || "" });
-  } catch (err) {
-    console.error("Chat handler error:", err);
-    res.status(200).json({
-      error: true,
-      message:
-        lang === "ar"
-          ? "في مشكلة مؤقتة في خدمة الذكاء الاصطناعي، جرب تاني بعد شوية."
-          : "The AI service hit a temporary issue — please try again shortly.",
-    });
   }
+
+  console.error("All Gemini models failed. Last status:", lastStatus, lastErrText);
+  res.status(200).json({
+    error: true,
+    message:
+      lang === "ar"
+        ? "في مشكلة مؤقتة في خدمة الذكاء الاصطناعي، جرب تاني بعد شوية."
+        : "The AI service hit a temporary issue — please try again shortly.",
+  });
 }
