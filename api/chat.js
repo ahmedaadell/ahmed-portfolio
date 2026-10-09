@@ -3,11 +3,13 @@
 //   "chat"   — answers visitor questions about Ahmed, grounded strictly in the CV data below.
 //   "runway" — gives a short narrative comment on the cash-runway calculator's numbers.
 //
-// Requires the ANTHROPIC_API_KEY environment variable to be set in the Vercel project
+// Uses Google's Gemini API (free tier, no billing required) — https://aistudio.google.com/apikey
+// Requires the GEMINI_API_KEY environment variable to be set in the Vercel project
 // (Project Settings -> Environment Variables). Without it, this function returns a
-// friendly error instead of crashing.
+// friendly error instead of crashing. The model name can be overridden with the optional
+// GEMINI_MODEL environment variable.
 
-const ANTHROPIC_MODEL = "claude-haiku-5-5";
+const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.0-flash";
 
 const PROFILE_CONTEXT = `
 You are the AI assistant embedded on Ahmed Adel Mohammed's personal portfolio website.
@@ -88,12 +90,12 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     res.status(200).json({
       error: true,
       message:
-        "AI isn't connected yet — the site owner needs to add an ANTHROPIC_API_KEY in Vercel.",
+        "AI isn't connected yet — the site owner needs to add a GEMINI_API_KEY in Vercel.",
     });
     return;
   }
@@ -110,13 +112,14 @@ module.exports = async function handler(req, res) {
   const lang = body?.lang === "ar" ? "ar" : "en";
 
   let system;
-  let userContent;
+  let geminiContents;
 
   if (mode === "runway") {
     const cash = Number(body?.cash) || 0;
     const burn = Number(body?.burn) || 0;
     system = RUNWAY_SYSTEM;
-    userContent = `Locale hint: ${lang === "ar" ? "Egyptian Arabic" : "English"}. Cash on hand: EGP ${cash.toLocaleString()}. Monthly burn: EGP ${burn.toLocaleString()}.`;
+    const userContent = `Locale hint: ${lang === "ar" ? "Egyptian Arabic" : "English"}. Cash on hand: EGP ${cash.toLocaleString()}. Monthly burn: EGP ${burn.toLocaleString()}.`;
+    geminiContents = [{ role: "user", parts: [{ text: userContent }] }];
   } else {
     const messages = Array.isArray(body?.messages) ? body.messages : [];
     // Keep only the last 8 turns to bound token usage.
@@ -128,32 +131,30 @@ module.exports = async function handler(req, res) {
       return;
     }
     system = PROFILE_CONTEXT;
-    userContent = null; // use full message history instead
-    body._trimmedMessages = trimmed;
+    // Gemini uses "model" instead of "assistant" for the prior-turn role.
+    geminiContents = trimmed.map((m) => ({
+      role: m.role === "assistant" ? "model" : "user",
+      parts: [{ text: m.content }],
+    }));
   }
 
   try {
-    const anthropicRes = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: ANTHROPIC_MODEL,
-        max_tokens: 400,
-        system,
-        messages:
-          mode === "runway"
-            ? [{ role: "user", content: userContent }]
-            : body._trimmedMessages.map((m) => ({ role: m.role, content: m.content })),
-      }),
-    });
+    const geminiRes = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: system }] },
+          contents: geminiContents,
+          generationConfig: { maxOutputTokens: 400 },
+        }),
+      }
+    );
 
-    if (!anthropicRes.ok) {
-      const errText = await anthropicRes.text();
-      console.error("Anthropic API error:", anthropicRes.status, errText);
+    if (!geminiRes.ok) {
+      const errText = await geminiRes.text();
+      console.error("Gemini API error:", geminiRes.status, errText);
       res.status(200).json({
         error: true,
         message:
@@ -164,10 +165,10 @@ module.exports = async function handler(req, res) {
       return;
     }
 
-    const data = await anthropicRes.json();
-    const text = (data?.content || [])
-      .filter((block) => block.type === "text")
-      .map((block) => block.text)
+    const data = await geminiRes.json();
+    const text = (data?.candidates?.[0]?.content?.parts || [])
+      .filter((part) => typeof part.text === "string")
+      .map((part) => part.text)
       .join("\n")
       .trim();
 
