@@ -179,6 +179,26 @@
   .work-item ul{margin:12px 0 0; padding-inline-start:1.1em; color:var(--ink-muted); font-size:.95rem}
   .work-item li{margin-block:4px}
 
+  /* case studies */
+  .case-list{display:flex; flex-direction:column}
+  .case-item{padding-block:26px; border-top:1px solid var(--rule)}
+  .case-item:first-child{border-top:0; padding-top:0}
+  .case-item .n{font-family:var(--font-mono); color:var(--accent); font-size:.85rem}
+  .case-item h3{margin-top:6px; font-size:1.1rem}
+  .case-tag{font-size:.88rem; color:var(--accent-2); margin-top:4px}
+  .case-block{margin-top:16px}
+  .case-block .lbl{font-family:var(--font-mono); font-size:.74rem; color:var(--ink-muted); text-transform:uppercase; letter-spacing:.04em; display:block; margin-bottom:5px}
+  .case-block p{color:var(--ink); font-size:.95rem; margin:0; line-height:1.5}
+  .case-block.result{margin-top:16px; padding-top:16px; border-top:1px dashed var(--rule)}
+  .case-block.result .lbl{color:var(--accent)}
+
+  /* insights */
+  .insight-list{display:grid; grid-template-columns:1fr; gap:1px; background:var(--rule); border:1px solid var(--rule)}
+  @media (min-width:720px){ .insight-list{grid-template-columns:repeat(3,1fr)} }
+  .insight-item{background:var(--bg); padding:22px 18px; min-width:0}
+  .insight-item h3{font-size:1.02rem; margin:0 0 10px}
+  .insight-item p{color:var(--ink-muted); font-size:.88rem; line-height:1.6; margin:0}
+
   /* systems & skills */
   .pillrow{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
   .pill{
@@ -338,6 +358,8 @@
   <nav class="nav">
     <a href="#approach" data-i18n="nav_approach">Approach</a>
     <a href="#work" data-i18n="nav_work">Work</a>
+    <a href="#case-studies" data-i18n="nav_cases">Case Studies</a>
+    <a href="#insights" data-i18n="nav_insights">Insights</a>
     <a href="#about" data-i18n="nav_about">About</a>
     <a href="#contact" data-i18n="nav_contact">Contact</a>
   </nav>
@@ -395,6 +417,14 @@
     <div class="work-list" id="work-list"></div>
   </section>
 
+  <section id="case-studies">
+    <div class="section-head">
+      <h2 data-i18n="cases_h">Case studies</h2>
+      <p data-i18n="cases_lead">Two of the results above, in more detail — the situation, what changed, and what it measured.</p>
+    </div>
+    <div class="case-list" id="case-list"></div>
+  </section>
+
   <section id="systems">
     <div class="section-head">
       <h2 data-i18n="systems_h">Systems &amp; core skills</h2>
@@ -439,6 +469,14 @@
         <div class="runway-ai-result" id="runwayAiResult"></div>
       </div>
     </div>
+  </section>
+
+  <section id="insights">
+    <div class="section-head">
+      <h2 data-i18n="insights_h">Insights</h2>
+      <p data-i18n="insights_lead">Short notes on the finance habits that actually move the needle.</p>
+    </div>
+    <div class="insight-list" id="insight-list"></div>
   </section>
 
   <section id="contact">
@@ -503,7 +541,7 @@
 <script>
 const T = {
 en: {
-  nav_approach:"Approach", nav_work:"Work", nav_about:"About", nav_contact:"Contact",
+  nav_approach:"Approach", nav_work:"Work", nav_cases:"Case Studies", nav_insights:"Insights", nav_about:"About", nav_contact:"Contact",
   hero_name:"Ahmed Adel Mohammed",
   hero_role:"Accounting Manager — Financial Reporting · Cash Flow & Treasury · Internal Controls · ERP (Odoo / SAP)",
   hero_lead:"I build accounting functions from the ground up, then the financial models senior teams use to decide what happens next.",
@@ -551,6 +589,19 @@ en: {
      line:"Where the compliance habits came from.",
      items:["Filed income tax, VAT, payroll and withholding tax returns","Implemented e-invoicing for clients, from onboarding to compliance","Supported statutory audits and prepared statements under Egyptian Accounting Standards and IFRS"]}
   ],
+  cases_h:"Case studies",
+  cases_lead:"Two of the results above, in more detail — the situation, what changed, and what it measured.",
+  cases:[
+    {co:"Roufy's", sector:"Food & Beverage, multi-branch · Cairo", title:"Replacing manual books with one ERP",
+     situation:"Multiple branches were closing their books by hand, each on its own process. Reconciliations were slow, and errors were common enough that management couldn't fully trust the monthly numbers.",
+     action:"Led the Odoo ERP rollout from the chart of accounts to daily workflow, supervised a team of 5 across AP, AR, payroll and treasury, redesigned the controls around every entry, and integrated Foodics POS directly with Odoo so sales data stopped being re-typed by hand.",
+     result:"Accounting errors down 70%. Processing time down 50%. One system, one set of numbers everyone could trust."},
+    {co:"Tiba International S.A.E.", sector:"Import, Export & Printing Supplies · Cairo", title:"Turning collections into a system, not a chase",
+     situation:"Overdue customer balances were climbing, spread across local and international accounts, with no structured way to track who owed what and for how long.",
+     action:"Built a structured follow-up process on top of regular reconciliation — aging reviewed on a fixed schedule, not only when cash got tight — while keeping VAT and e-invoicing compliant through the same cycle.",
+     result:"Overdue balances down 35%, with collections now running as a routine, not a monthly scramble."}
+  ],
+  case_situation:"Situation", case_action:"What changed", case_result:"Result",
   systems_h:"Systems & core skills",
   systems_label:"Systems", skills_label:"Skills",
   systems:["Odoo ERP","SAP","QuickBooks","Foodics POS","Advanced Excel (financial modeling)"],
@@ -570,6 +621,13 @@ en: {
   tool_cash:"Cash on hand (EGP)", tool_burn:"Average monthly burn (EGP)",
   tool_months:"months of runway",
   tool_note:"Rough guide only — it assumes burn stays flat and ignores incoming receivables.",
+  insights_h:"Insights",
+  insights_lead:"Short notes on the finance habits that actually move the needle.",
+  insights:[
+    {t:"Cash flow vs. profit", b:"A profitable month on paper doesn't mean cash in the bank. Revenue gets booked the moment it's earned, but the cash behind it can sit in receivables for 30, 60, 90 days — or longer. I've seen companies with a healthy P&L still struggle to pay a supplier on time, simply because the cash hadn't caught up yet. The fix isn't a bigger margin, it's tracking the gap itself: a rolling cash-flow forecast that shows what's coming in and when, not just what was earned. Profit tells you the business works. Cash flow tells you whether it survives the next quarter."},
+    {t:"Why AR aging deserves a weekly look", b:"Receivables don't go bad overnight — they drift. A balance that's 15 days overdue is a reminder email. The same balance at 90 days is a collections problem, and often a write-off. The difference is usually just how often someone looked at the aging report. I review it on a fixed schedule, not only when cash gets tight, and flag anything crossing a threshold before it becomes routine. It's not a dramatic fix — just discipline applied consistently, which is most of what collections actually is."},
+    {t:"Budget vs. actual: a conversation, not a scorecard", b:"A variance report that just lists red and green numbers invites blame, not explanation. The more useful version asks why: was a cost delayed, cancelled, or genuinely overrun? Was a revenue line early, or optimistic to begin with? I treat budget-vs-actual as the start of a conversation with the people who own each line, not a monthly report that lands in an inbox. Done that way, it catches real problems early and stops being something departments quietly dread."}
+  ],
   contact_h:"Let's talk numbers",
   contact_lead:"Open to full-time Accounting Manager / Finance Manager roles, and to select freelance financial-modeling or reporting engagements.",
   contact_email_k:"Email", contact_phone_k:"Phone", contact_loc_k:"Location",
@@ -592,7 +650,7 @@ en: {
   runway_ai_error:"Couldn't get an AI insight right now — the AI may not be connected yet."
 },
 ar: {
-  nav_approach:"نهجي", nav_work:"الخبرات", nav_about:"نبذة", nav_contact:"تواصل",
+  nav_approach:"نهجي", nav_work:"الخبرات", nav_cases:"دراسات حالة", nav_insights:"مقالات", nav_about:"نبذة", nav_contact:"تواصل",
   hero_name:"أحمد عادل محمد",
   hero_role:"مدير حسابات — تقارير مالية · تدفقات نقدية وخزينة · ضوابط داخلية · أنظمة ERP (Odoo / SAP)",
   hero_lead:"أبني الإدارة المالية من الصفر، ثم أصمم النماذج المالية التي تعتمد عليها الإدارة العليا في اتخاذ القرار.",
@@ -640,6 +698,19 @@ ar: {
      line:"من هنا بدأت عادات الالتزام الضريبي.",
      items:["إعداد وتقديم إقرارات ضريبة الدخل والقيمة المضافة والرواتب والخصم من المنبع","تطبيق نظام الفاتورة الإلكترونية للعملاء من التسجيل حتى الالتزام الكامل","دعم المراجعات القانونية وإعداد القوائم المالية وفق المعايير المصرية ومعايير IFRS"]}
   ],
+  cases_h:"دراسات حالة",
+  cases_lead:"اثنتان من النتائج أعلاه، بتفصيل أكبر — الوضع قبل التدخل، وما تغيّر، وما تحقق.",
+  cases:[
+    {co:"Roufy's", sector:"مطاعم ومشروبات، فروع متعددة · القاهرة", title:"استبدال الدفاتر اليدوية بنظام ERP واحد",
+     situation:"كانت كل فرع تُقفل حساباتها يدويًا وبطريقتها الخاصة. التسويات كانت بطيئة، والأخطاء متكررة بما يكفي لتجعل الإدارة غير واثقة تمامًا من الأرقام الشهرية.",
+     action:"قدت تطبيق نظام Odoo من شجرة الحسابات حتى سير العمل اليومي، وأشرفت على فريق من 5 أفراد في الحسابات الدائنة والمدينة والرواتب والخزينة، وأعدت تصميم الضوابط حول كل قيد، وربطت نظام Foodics POS مباشرة بـ Odoo بحيث توقّفت إعادة إدخال بيانات المبيعات يدويًا.",
+     result:"انخفضت الأخطاء المحاسبية 70%، ووقت المعالجة 50%. نظام واحد، ورقم واحد يثق فيه الجميع."},
+    {co:"Tiba International S.A.E.", sector:"استيراد وتصدير ومستلزمات طباعة · القاهرة", title:"تحويل التحصيل إلى نظام، لا مطاردة شهرية",
+     situation:"كانت أرصدة العملاء المتأخرة في تزايد، موزعة بين عملاء محليين ودوليين، دون طريقة منظمة لمعرفة من المدين وبأي مدة تأخير.",
+     action:"بنيت عملية متابعة منظمة فوق التسوية الدورية — مراجعة أعمار الديون وفق جدول ثابت، لا فقط عند ضيق السيولة — مع الحفاظ على الالتزام بضريبة القيمة المضافة والفاتورة الإلكترونية طوال نفس الدورة.",
+     result:"انخفضت الأرصدة المتأخرة 35%، وأصبح التحصيل روتينًا منظمًا لا مطاردة شهرية."}
+  ],
+  case_situation:"الوضع", case_action:"ما تغيّر", case_result:"النتيجة",
   systems_h:"الأنظمة والمهارات الأساسية",
   systems_label:"الأنظمة", skills_label:"المهارات",
   systems:["Odoo ERP","SAP","QuickBooks","Foodics POS","إكسل متقدم (نمذجة مالية)"],
@@ -659,6 +730,13 @@ ar: {
   tool_cash:"النقدية المتاحة (جنيه)", tool_burn:"متوسط الصرف الشهري (جنيه)",
   tool_months:"شهر من الاستمرارية",
   tool_note:"رقم تقريبي فقط — يفترض ثبات معدل الصرف ولا يحتسب التحصيل المتوقع.",
+  insights_h:"مقالات",
+  insights_lead:"ملاحظات قصيرة عن عادات العمل المالي التي تصنع فرقًا فعليًا.",
+  insights:[
+    {t:"التدفق النقدي مقابل الربح", b:"شهر مربح على الورق لا يعني بالضرورة وجود سيولة في البنك. الإيراد يُسجَّل لحظة تحققه، لكن السيولة خلفه قد تبقى في المديونيات 30 أو 60 أو 90 يومًا — أو أكثر. رأيت شركات بقائمة دخل جيدة لكنها تواجه صعوبة في سداد مورد في موعده، لمجرد أن السيولة لم تلحق بالربح بعد. الحل ليس هامش ربح أكبر، بل متابعة الفجوة نفسها: توقع تدفق نقدي متجدد يوضح ما هو قادم ومتى، لا ما تحقق فقط. الربح يخبرك أن النشاط يعمل. التدفق النقدي يخبرك إن كان سيصمد في الربع القادم."},
+    {t:"لماذا تستحق أعمار الديون مراجعة أسبوعية", b:"المديونيات لا تتعثر فجأة — بل تتآكل تدريجيًا. رصيد متأخر 15 يومًا يحتاج رسالة تذكير. نفس الرصيد عند 90 يومًا يصبح مشكلة تحصيل، وغالبًا خسارة محتملة. الفارق عادة هو فقط عدد مرات مراجعة تقرير أعمار الديون. أراجعه وفق جدول ثابت، لا فقط عند ضيق السيولة، وأرصد أي رصيد يتجاوز حدًا معينًا قبل أن يتحول إلى أمر معتاد. ليس حلًا دراماتيكيًا — فقط انضباط مستمر، وهو غالبًا جوهر عملية التحصيل."},
+    {t:"الموازنة مقابل الفعلي: حوار، لا كشف حساب", b:"تقرير انحرافات يكتفي بعرض أرقام بالأحمر والأخضر يفتح باب اللوم لا التفسير. النسخة الأكثر فائدة تسأل لماذا: هل تأخرت تكلفة، أم أُلغيت، أم تجاوزت الموازنة فعليًا؟ هل جاء بند إيراد مبكرًا، أم كان الافتراض متفائلًا من الأساس؟ أتعامل مع مقارنة الموازنة بالفعلي كبداية حوار مع المسؤولين عن كل بند، لا كتقرير شهري يصل إلى بريدهم. بهذه الطريقة، يرصد المشاكل الحقيقية مبكرًا، ويتوقف عن كونه أمرًا تتجنبه الأقسام بصمت."}
+  ],
   contact_h:"لنتحدث بالأرقام",
   contact_lead:"متاح لوظائف دائمة كمدير حسابات / مدير مالي، وكذلك لأعمال استشارية مختارة في النمذجة المالية والتقارير.",
   contact_email_k:"البريد", contact_phone_k:"الهاتف", contact_loc_k:"الموقع",
@@ -716,10 +794,21 @@ function render(lang){
       <p class="work-line">${w.line}</p>
       <ul>${w.items.map(x=>`<li>${x}</li>`).join('')}</ul>
     </div>`);
+  renderList('case-list', t.cases, (c,i)=>`
+    <div class="case-item">
+      <span class="n">${String(i+1).padStart(2,'0')}</span>
+      <h3>${c.title}</h3>
+      <div class="case-tag">${c.co} — ${c.sector}</div>
+      <div class="case-block"><span class="lbl">${t.case_situation}</span><p>${c.situation}</p></div>
+      <div class="case-block"><span class="lbl">${t.case_action}</span><p>${c.action}</p></div>
+      <div class="case-block result"><span class="lbl">${t.case_result}</span><p>${c.result}</p></div>
+    </div>`);
   renderList('systems-pills', t.systems, s=>`<span class="pill">${s}</span>`);
   renderList('skills-pills', t.skills, s=>`<span class="pill">${s}</span>`);
   renderList('cred-list', t.creds, c=>`<li><span class="dot"></span><div><span class="cred-line">${c.l}</span>${c.file?` <a class="cred-link" href="${c.file}" target="_blank" rel="noopener">${t.cred_view}</a>`:''}${c.s?`<span class="cred-sub">${c.s}</span>`:''}</div></li>`);
   document.getElementById('langs-line').textContent = t.langs_line;
+
+  renderList('insight-list', t.insights, x=>`<div class="insight-item"><h3>${x.t}</h3><p>${x.b}</p></div>`);
 
   document.getElementById('wa-link').href = 'https://wa.me/201026286048?text=' + encodeURIComponent(t.wa_prefill);
 
