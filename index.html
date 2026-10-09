@@ -159,6 +159,13 @@
   .approach-item li{margin-block:4px}
   .approach-item .line{margin-top:12px; font-size:.95rem; color:var(--ink)}
 
+  /* services */
+  .service-list{display:grid; grid-template-columns:1fr; gap:1px; background:var(--rule); border:1px solid var(--rule)}
+  @media (min-width:640px){ .service-list{grid-template-columns:repeat(2,1fr)} }
+  .service-item{background:var(--bg); padding:22px 20px; min-width:0}
+  .service-item h3{font-size:1.05rem; margin:0 0 8px}
+  .service-item p{color:var(--ink-muted); font-size:.9rem; line-height:1.55; margin:0}
+
   /* achievements */
   .tiles{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule)}
   @media (min-width:560px){ .tiles{grid-template-columns:repeat(4,1fr)} }
@@ -192,12 +199,34 @@
   .case-block.result{margin-top:16px; padding-top:16px; border-top:1px dashed var(--rule)}
   .case-block.result .lbl{color:var(--accent)}
 
+  /* sample chart */
+  .sample-box{border:1px solid var(--rule); border-radius:6px; padding:22px; margin-top:6px; background:var(--bg-raised)}
+  .sample-row{display:grid; grid-template-columns:3em 1fr; gap:14px; align-items:center; margin-bottom:14px}
+  .sample-row:last-child{margin-bottom:0}
+  .sample-row .m{font-family:var(--font-mono); font-size:.82rem; color:var(--ink-muted)}
+  .sample-bars{position:relative; height:18px; background:rgba(240,242,236,.08); border-radius:3px}
+  .sample-bar{position:absolute; top:0; left:0; height:100%; border-radius:3px}
+  .sample-bar.budget{background:rgba(231,183,104,.28)}
+  .sample-bar.actual{background:var(--accent-2); height:8px; top:5px}
+  .sample-legend{display:flex; gap:20px; margin-top:18px; font-size:.8rem; color:var(--ink-muted)}
+  .sample-legend .dot{display:inline-block; width:9px; height:9px; border-radius:2px; margin-inline-end:6px}
+  .sample-legend .dot.budget{background:rgba(231,183,104,.5)}
+  .sample-legend .dot.actual{background:var(--accent-2)}
+  .sample-note{font-size:.85rem; color:var(--ink-muted); margin-top:16px}
+
   /* insights */
   .insight-list{display:grid; grid-template-columns:1fr; gap:1px; background:var(--rule); border:1px solid var(--rule)}
   @media (min-width:720px){ .insight-list{grid-template-columns:repeat(3,1fr)} }
   .insight-item{background:var(--bg); padding:22px 18px; min-width:0}
   .insight-item h3{font-size:1.02rem; margin:0 0 10px}
   .insight-item p{color:var(--ink-muted); font-size:.88rem; line-height:1.6; margin:0}
+
+  /* faq */
+  .faq-list{display:flex; flex-direction:column}
+  .faq-item{padding-block:20px; border-top:1px solid var(--rule)}
+  .faq-item:first-child{border-top:0; padding-top:0}
+  .faq-item h3{font-size:.98rem; margin:0 0 8px}
+  .faq-item p{color:var(--ink-muted); font-size:.9rem; line-height:1.55; margin:0}
 
   /* systems & skills */
   .pillrow{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
@@ -374,6 +403,7 @@
   <div class="brand">Ahmed Adel Mohammed</div>
   <nav class="nav">
     <a href="#approach" data-i18n="nav_approach">Approach</a>
+    <a href="#services" data-i18n="nav_services">Services</a>
     <a href="#work" data-i18n="nav_work">Work</a>
     <a href="#case-studies" data-i18n="nav_cases">Case Studies</a>
     <a href="#insights" data-i18n="nav_insights">Insights</a>
@@ -419,6 +449,15 @@
     <div class="approach-list" id="approach-list"></div>
   </section>
 
+  <section id="services">
+    <div class="section-head">
+      <h2 data-i18n="services_h">Freelance services</h2>
+      <p data-i18n="services_lead">Select engagements alongside full-time work — scoped, remote-friendly, and billed by the project or the hour depending on what fits.</p>
+    </div>
+    <div class="service-list" id="service-list"></div>
+    <a class="btn primary" href="#contact" style="margin-top:22px" data-i18n="services_cta">Discuss a project</a>
+  </section>
+
   <section id="results">
     <div class="section-head">
       <h2 data-i18n="results_h">Selected results</h2>
@@ -440,6 +479,21 @@
       <p data-i18n="cases_lead">Two of the results above, in more detail — the situation, what changed, and what it measured.</p>
     </div>
     <div class="case-list" id="case-list"></div>
+  </section>
+
+  <section id="sample">
+    <div class="section-head">
+      <h2 data-i18n="sample_h">A sample of the models I build</h2>
+      <p data-i18n="sample_lead">A simplified mock-up, not real client data — to show the shape of the output.</p>
+    </div>
+    <div class="sample-box">
+      <div class="sample-chart" id="sampleChart"></div>
+      <div class="sample-legend">
+        <span><span class="dot budget"></span><span data-i18n="sample_legend_budget">Budget</span></span>
+        <span><span class="dot actual"></span><span data-i18n="sample_legend_actual">Actual</span></span>
+      </div>
+      <p class="sample-note" data-i18n="sample_note">Illustrative figures for "Sample Co." — monthly revenue, budget vs. actual, EGP thousands.</p>
+    </div>
   </section>
 
   <section id="systems">
@@ -494,6 +548,13 @@
       <p data-i18n="insights_lead">Short notes on the finance habits that actually move the needle.</p>
     </div>
     <div class="insight-list" id="insight-list"></div>
+  </section>
+
+  <section id="faq">
+    <div class="section-head">
+      <h2 data-i18n="faq_h">Frequently asked questions</h2>
+    </div>
+    <div class="faq-list" id="faq-list"></div>
   </section>
 
   <section id="contact">
@@ -578,7 +639,7 @@
 <script>
 const T = {
 en: {
-  nav_approach:"Approach", nav_work:"Work", nav_cases:"Case Studies", nav_insights:"Insights", nav_about:"About", nav_contact:"Contact",
+  nav_approach:"Approach", nav_services:"Services", nav_work:"Work", nav_cases:"Case Studies", nav_insights:"Insights", nav_about:"About", nav_contact:"Contact",
   hero_name:"Ahmed Adel Mohammed",
   hero_role:"Accounting Manager — Financial Reporting · Cash Flow & Treasury · Internal Controls · ERP (Odoo / SAP)",
   hero_lead:"I build accounting functions from the ground up, then the financial models senior teams use to decide what happens next.",
@@ -599,6 +660,15 @@ en: {
     {t:"Accounting function setup", items:["Chart of accounts & procedures","Internal controls design","ERP implementation (Odoo / SAP)"], line:"A system built to hold up under audit review."},
     {t:"Reporting & treasury", items:["Month-end & year-end close","Cash flow & liquidity planning","Receivables, collections & cheques"], line:"Numbers that close on schedule, and a cash position visible two months ahead."},
     {t:"Financial modeling", items:["Feasibility studies (P&L, cash flow, IRR, NPV)","Budget vs. actual & variance","Management reporting for decisions"], line:"A model management can question, not just read."}
+  ],
+  services_h:"Freelance services",
+  services_lead:"Select engagements alongside full-time work — scoped, remote-friendly, and billed by the project or the hour depending on what fits.",
+  services_cta:"Discuss a project",
+  services:[
+    {t:"ERP setup & implementation", d:"Odoo or SAP from the chart of accounts up — migrating from spreadsheets or manual books into one system, with controls built in from day one."},
+    {t:"Cash flow & financial modeling", d:"Rolling cash-flow forecasts, feasibility studies and budget-vs-actual models (IRR, NPV) built for people who will question the assumptions."},
+    {t:"Bookkeeping cleanup & monthly close", d:"Reconciliations, a working close calendar, and reporting that's ready on schedule, not chased down after the fact."},
+    {t:"Management reporting", d:"Recurring reports and dashboards that give an owner or investor a clear read on the numbers without a finance background."}
   ],
   results_h:"Selected results",
   tiles:[
@@ -639,6 +709,13 @@ en: {
      result:"Overdue balances down 35%, with collections now running as a routine, not a monthly scramble."}
   ],
   case_situation:"Situation", case_action:"What changed", case_result:"Result",
+  sample_h:"A sample of the models I build",
+  sample_lead:"A simplified mock-up, not real client data — to show the shape of the output.",
+  sample_legend_budget:"Budget", sample_legend_actual:"Actual",
+  sample_note:"Illustrative figures for \"Sample Co.\" — monthly revenue, budget vs. actual, EGP thousands.",
+  sample_months:["Jan","Feb","Mar","Apr","May","Jun"],
+  sample_budget:[800,820,850,900,900,950],
+  sample_actual:[760,830,790,910,940,905],
   systems_h:"Systems & core skills",
   systems_label:"Systems", skills_label:"Skills",
   systems:["Odoo ERP","SAP","QuickBooks","Foodics POS","Advanced Excel (financial modeling)"],
@@ -664,6 +741,14 @@ en: {
     {t:"Cash flow vs. profit", b:"A profitable month on paper doesn't mean cash in the bank. Revenue gets booked the moment it's earned, but the cash behind it can sit in receivables for 30, 60, 90 days — or longer. I've seen companies with a healthy P&L still struggle to pay a supplier on time, simply because the cash hadn't caught up yet. The fix isn't a bigger margin, it's tracking the gap itself: a rolling cash-flow forecast that shows what's coming in and when, not just what was earned. Profit tells you the business works. Cash flow tells you whether it survives the next quarter."},
     {t:"Why AR aging deserves a weekly look", b:"Receivables don't go bad overnight — they drift. A balance that's 15 days overdue is a reminder email. The same balance at 90 days is a collections problem, and often a write-off. The difference is usually just how often someone looked at the aging report. I review it on a fixed schedule, not only when cash gets tight, and flag anything crossing a threshold before it becomes routine. It's not a dramatic fix — just discipline applied consistently, which is most of what collections actually is."},
     {t:"Budget vs. actual: a conversation, not a scorecard", b:"A variance report that just lists red and green numbers invites blame, not explanation. The more useful version asks why: was a cost delayed, cancelled, or genuinely overrun? Was a revenue line early, or optimistic to begin with? I treat budget-vs-actual as the start of a conversation with the people who own each line, not a monthly report that lands in an inbox. Done that way, it catches real problems early and stops being something departments quietly dread."}
+  ],
+  faq_h:"Frequently asked questions",
+  faq:[
+    {q:"How does an engagement usually start?", a:"A short message or call to understand the scope — current books, the system in use, and what's missing. From there I scope the work and give a time and cost estimate before anything is booked."},
+    {q:"Do you work remotely with clients outside Egypt?", a:"Yes. I've worked on-site and remotely across Egypt and Saudi Arabia, and remote engagements run the same way — scheduled check-ins, shared files, and a clear reporting cadence."},
+    {q:"How is pricing structured?", a:"Project-based for defined deliverables like an ERP setup or a feasibility model, hourly for open-ended advisory work. Either way, you get an estimate before work starts, not a surprise at the end."},
+    {q:"Is my financial data kept confidential?", a:"Yes — standard practice from years in audit and corporate accounting. Happy to sign an NDA before any data changes hands."},
+    {q:"What's the typical turnaround?", a:"Depends on scope — a cash-flow model review can turn around in a few days, a full ERP rollout takes weeks. I'll give a realistic timeline once I see what's involved."}
   ],
   contact_h:"Let's talk numbers",
   contact_lead:"Open to full-time Accounting Manager / Finance Manager roles, and to select freelance financial-modeling or reporting engagements.",
@@ -692,7 +777,7 @@ en: {
   runway_ai_error:"Couldn't get an AI insight right now — the AI may not be connected yet."
 },
 ar: {
-  nav_approach:"نهجي", nav_work:"الخبرات", nav_cases:"دراسات حالة", nav_insights:"مقالات", nav_about:"نبذة", nav_contact:"تواصل",
+  nav_approach:"نهجي", nav_services:"الخدمات", nav_work:"الخبرات", nav_cases:"دراسات حالة", nav_insights:"مقالات", nav_about:"نبذة", nav_contact:"تواصل",
   hero_name:"أحمد عادل محمد",
   hero_role:"مدير حسابات — تقارير مالية · تدفقات نقدية وخزينة · ضوابط داخلية · أنظمة ERP (Odoo / SAP)",
   hero_lead:"أبني الإدارة المالية من الصفر، ثم أصمم النماذج المالية التي تعتمد عليها الإدارة العليا في اتخاذ القرار.",
@@ -713,6 +798,15 @@ ar: {
     {t:"إنشاء الإدارة المحاسبية", items:["شجرة الحسابات والإجراءات","تصميم الضوابط الداخلية","تطبيق أنظمة ERP (Odoo / SAP)"], line:"نظام يصمد أمام المراجعة."},
     {t:"التقارير والخزينة", items:["الإقفال الشهري والسنوي","تخطيط التدفقات النقدية والسيولة","المديونيات والتحصيل والشيكات"], line:"أرقام تُقفل في موعدها، ووضع نقدي مرئي قبل شهرين من حدوثه."},
     {t:"النمذجة المالية", items:["دراسات الجدوى (قوائم الدخل، التدفقات النقدية، IRR، NPV)","الموازنة التقديرية وتحليل الانحرافات","تقارير إدارية لدعم القرار"], line:"نموذج تستطيع الإدارة مناقشته، لا مجرد قراءته."}
+  ],
+  services_h:"خدمات مستقلة",
+  services_lead:"مشاريع مختارة بجانب الوظيفة الأساسية — بنطاق محدد، عن بُعد، وبأجر بالمشروع أو بالساعة حسب طبيعة العمل.",
+  services_cta:"ناقش مشروعك",
+  services:[
+    {t:"تطبيق أنظمة ERP", d:"Odoo أو SAP من شجرة الحسابات حتى سير العمل اليومي — الانتقال من الإكسل أو الدفاتر اليدوية إلى نظام واحد، بضوابط مدمجة من اليوم الأول."},
+    {t:"التدفقات النقدية والنمذجة المالية", d:"توقعات تدفق نقدي متجددة، دراسات جدوى، ونماذج موازنة مقابل فعلي (IRR، NPV) مبنية لأشخاص سيناقشون الافتراضات."},
+    {t:"تنظيف الدفاتر والإقفال الشهري", d:"تسويات، تقويم إقفال فعلي، وتقارير جاهزة في موعدها، لا تُلاحق بعد فوات الأوان."},
+    {t:"تقارير إدارية", d:"تقارير ولوحات متابعة دورية تعطي صاحب العمل أو المستثمر رؤية واضحة للأرقام من غير خلفية محاسبية."}
   ],
   results_h:"نتائج مُحققة",
   tiles:[
@@ -753,6 +847,13 @@ ar: {
      result:"انخفضت الأرصدة المتأخرة 35%، وأصبح التحصيل روتينًا منظمًا لا مطاردة شهرية."}
   ],
   case_situation:"الوضع", case_action:"ما تغيّر", case_result:"النتيجة",
+  sample_h:"نموذج توضيحي لشكل العمل",
+  sample_lead:"نموذج مبسّط، وليس بيانات عميل حقيقية — فقط لتوضيح شكل الناتج النهائي.",
+  sample_legend_budget:"الموازنة", sample_legend_actual:"الفعلي",
+  sample_note:"أرقام توضيحية لشركة \"Sample Co.\" — إيراد شهري، الموازنة مقابل الفعلي، بالآلاف من الجنيهات.",
+  sample_months:["يناير","فبراير","مارس","أبريل","مايو","يونيو"],
+  sample_budget:[800,820,850,900,900,950],
+  sample_actual:[760,830,790,910,940,905],
   systems_h:"الأنظمة والمهارات الأساسية",
   systems_label:"الأنظمة", skills_label:"المهارات",
   systems:["Odoo ERP","SAP","QuickBooks","Foodics POS","إكسل متقدم (نمذجة مالية)"],
@@ -778,6 +879,14 @@ ar: {
     {t:"التدفق النقدي مقابل الربح", b:"شهر مربح على الورق لا يعني بالضرورة وجود سيولة في البنك. الإيراد يُسجَّل لحظة تحققه، لكن السيولة خلفه قد تبقى في المديونيات 30 أو 60 أو 90 يومًا — أو أكثر. رأيت شركات بقائمة دخل جيدة لكنها تواجه صعوبة في سداد مورد في موعده، لمجرد أن السيولة لم تلحق بالربح بعد. الحل ليس هامش ربح أكبر، بل متابعة الفجوة نفسها: توقع تدفق نقدي متجدد يوضح ما هو قادم ومتى، لا ما تحقق فقط. الربح يخبرك أن النشاط يعمل. التدفق النقدي يخبرك إن كان سيصمد في الربع القادم."},
     {t:"لماذا تستحق أعمار الديون مراجعة أسبوعية", b:"المديونيات لا تتعثر فجأة — بل تتآكل تدريجيًا. رصيد متأخر 15 يومًا يحتاج رسالة تذكير. نفس الرصيد عند 90 يومًا يصبح مشكلة تحصيل، وغالبًا خسارة محتملة. الفارق عادة هو فقط عدد مرات مراجعة تقرير أعمار الديون. أراجعه وفق جدول ثابت، لا فقط عند ضيق السيولة، وأرصد أي رصيد يتجاوز حدًا معينًا قبل أن يتحول إلى أمر معتاد. ليس حلًا دراماتيكيًا — فقط انضباط مستمر، وهو غالبًا جوهر عملية التحصيل."},
     {t:"الموازنة مقابل الفعلي: حوار، لا كشف حساب", b:"تقرير انحرافات يكتفي بعرض أرقام بالأحمر والأخضر يفتح باب اللوم لا التفسير. النسخة الأكثر فائدة تسأل لماذا: هل تأخرت تكلفة، أم أُلغيت، أم تجاوزت الموازنة فعليًا؟ هل جاء بند إيراد مبكرًا، أم كان الافتراض متفائلًا من الأساس؟ أتعامل مع مقارنة الموازنة بالفعلي كبداية حوار مع المسؤولين عن كل بند، لا كتقرير شهري يصل إلى بريدهم. بهذه الطريقة، يرصد المشاكل الحقيقية مبكرًا، ويتوقف عن كونه أمرًا تتجنبه الأقسام بصمت."}
+  ],
+  faq_h:"أسئلة شائعة",
+  faq:[
+    {q:"إزاي بيبدأ التعاون عادةً؟", a:"رسالة أو مكالمة قصيرة لفهم نطاق العمل — الدفاتر الحالية، النظام المستخدم، وإيه الناقص. من هنا بحدد النطاق وأديك تقدير وقت وتكلفة قبل أي اتفاق."},
+    {q:"بتشتغل عن بُعد مع عملاء برا مصر؟", a:"أيوه. اشتغلت في الموقع وعن بُعد بين مصر والسعودية، والتعاون عن بُعد بيمشي بنفس الطريقة — متابعات مجدولة، ملفات مشتركة، وتقارير بوتيرة واضحة."},
+    {q:"إزاي بتتحدد الأسعار؟", a:"بالمشروع لو الناتج محدد زي تطبيق ERP أو نموذج جدوى، وبالساعة للاستشارات المفتوحة. في الحالتين، بتاخد تقدير قبل ما نبدأ، مش مفاجأة في الآخر."},
+    {q:"بياناتي المالية هتفضل سرية؟", a:"أيوه — ده أسلوب تعامل أساسي من سنين الخبرة في المراجعة والمحاسبة المؤسسية. وأقدر أوقّع اتفاقية سرية (NDA) قبل أي تبادل بيانات."},
+    {q:"المدة المتوقعة للتسليم قد إيه؟", a:"بيعتمد على حجم العمل — مراجعة نموذج تدفق نقدي ممكن تتسلم خلال أيام، وتطبيق ERP كامل ممكن ياخد أسابيع. هديك جدول زمني واقعي بعد ما أشوف تفاصيل العمل."}
   ],
   contact_h:"لنتحدث بالأرقام",
   contact_lead:"متاح لوظائف دائمة كمدير حسابات / مدير مالي، وكذلك لأعمال استشارية مختارة في النمذجة المالية والتقارير.",
@@ -811,6 +920,23 @@ let currentLang = 'en';
 
 function renderList(id, arr, html){ document.getElementById(id).innerHTML = arr.map(html).join(''); }
 
+function renderSampleChart(t){
+  const el = document.getElementById('sampleChart');
+  if (!el) return;
+  const maxVal = Math.max(...t.sample_budget, ...t.sample_actual);
+  el.innerHTML = t.sample_months.map((m, i) => {
+    const budgetPct = (t.sample_budget[i] / maxVal) * 100;
+    const actualPct = (t.sample_actual[i] / maxVal) * 100;
+    return `<div class="sample-row">
+      <span class="m">${m}</span>
+      <div class="sample-bars">
+        <div class="sample-bar budget" style="width:${budgetPct}%"></div>
+        <div class="sample-bar actual" style="width:${actualPct}%"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
 function render(lang){
   const t = T[lang];
   document.documentElement.setAttribute('lang', lang);
@@ -832,6 +958,7 @@ function render(lang){
       <ul>${a.items.map(x=>`<li>${x}</li>`).join('')}</ul>
       <p class="line">${a.line}</p>
     </div>`);
+  renderList('service-list', t.services, s=>`<div class="service-item"><h3>${s.t}</h3><p>${s.d}</p></div>`);
   renderList('tiles', t.tiles, x=>`<div class="tile"><div class="num">${x.n}</div><div class="cap">${x.c}</div></div>`);
   renderList('work-list', t.work, (w,i)=>`
     <div class="work-item">
@@ -850,12 +977,14 @@ function render(lang){
       <div class="case-block"><span class="lbl">${t.case_action}</span><p>${c.action}</p></div>
       <div class="case-block result"><span class="lbl">${t.case_result}</span><p>${c.result}</p></div>
     </div>`);
+  renderSampleChart(t);
   renderList('systems-pills', t.systems, s=>`<span class="pill">${s}</span>`);
   renderList('skills-pills', t.skills, s=>`<span class="pill">${s}</span>`);
   renderList('cred-list', t.creds, c=>`<li><span class="dot"></span><div><span class="cred-line">${c.l}</span>${c.file?` <a class="cred-link" href="${c.file}" target="_blank" rel="noopener">${t.cred_view}</a>`:''}${c.s?`<span class="cred-sub">${c.s}</span>`:''}</div></li>`);
   document.getElementById('langs-line').textContent = t.langs_line;
 
   renderList('insight-list', t.insights, x=>`<div class="insight-item"><h3>${x.t}</h3><p>${x.b}</p></div>`);
+  renderList('faq-list', t.faq, f=>`<div class="faq-item"><h3>${f.q}</h3><p>${f.a}</p></div>`);
 
   document.getElementById('wa-link').href = 'https://wa.me/201026286048?text=' + encodeURIComponent(t.wa_prefill);
 
