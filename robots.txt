@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ahmed-adel-mohammed.vercel.app/sitemap.xml

@@ -236,6 +236,38 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ahmed Adel Mohammed",
+  "alternateName": "أحمد عادل محمد",
+  "jobTitle": "Accounting Manager",
+  "description": "Accounting Manager with 8+ years across real estate & leasing, F&B, import/export and construction — financial reporting, cash flow, internal controls and ERP (Odoo/SAP).",
+  "url": "https://ahmed-adel-mohammed.vercel.app/",
+  "image": "https://ahmed-adel-mohammed.vercel.app/og-image.jpg",
+  "email": "mailto:ahmedamohmed45@gmail.com",
+  "telephone": "+201026286048",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Cairo",
+    "addressCountry": "EG"
+  },
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Meadis Group"
+  },
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "Helwan University"
+  },
+  "knowsAbout": ["Financial Reporting", "Cash Flow Management", "Internal Controls", "ERP Implementation", "Financial Modeling", "IFRS"],
+  "sameAs": [
+    "https://www.linkedin.com/in/ahmed-adel-mohammed1"
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -360,6 +392,10 @@
         <button class="copybtn" data-copy="+201026286048" onclick="copyText(this)" data-i18n="copy">Copy</button>
       </div>
       <div class="contact-row">
+        <span class="k" data-i18n="contact_wa_k">WhatsApp</span>
+        <a class="v" id="wa-link" href="https://wa.me/201026286048" target="_blank" rel="noopener" data-i18n="contact_wa_v">Chat on WhatsApp</a>
+      </div>
+      <div class="contact-row">
         <span class="k">LinkedIn</span>
         <a class="v" href="https://www.linkedin.com/in/ahmed-adel-mohammed1" target="_blank" rel="noopener">linkedin.com/in/ahmed-adel-mohammed1</a>
       </div>
@@ -456,6 +492,8 @@ en: {
   contact_email_k:"Email", contact_phone_k:"Phone", contact_loc_k:"Location",
   contact_loc_v:"Cairo, Egypt — open to relocation (GCC)",
   contact_cv_k:"CV", contact_cv_v:"Download PDF",
+  contact_wa_k:"WhatsApp", contact_wa_v:"Chat on WhatsApp",
+  wa_prefill:"Hi Ahmed, I saw your portfolio and would like to get in touch.",
   copy:"Copy", copied:"Copied",
   footer_role:"Ahmed Adel Mohammed — Accounting Manager · Portfolio, 2026"
 },
@@ -532,6 +570,8 @@ ar: {
   contact_email_k:"البريد", contact_phone_k:"الهاتف", contact_loc_k:"الموقع",
   contact_loc_v:"القاهرة، مصر — متاح للانتقال (دول الخليج)",
   contact_cv_k:"السيرة الذاتية", contact_cv_v:"تحميل PDF",
+  contact_wa_k:"واتساب", contact_wa_v:"راسلني على واتساب",
+  wa_prefill:"أهلاً أحمد، شفت موقعك وحابب أتواصل معاك.",
   copy:"نسخ", copied:"تم النسخ",
   footer_role:"أحمد عادل محمد — مدير حسابات · بورتفوليو، 2026"
 }
@@ -575,6 +615,8 @@ function render(lang){
   renderList('skills-pills', t.skills, s=>`<span class="pill">${s}</span>`);
   renderList('cred-list', t.creds, c=>`<li><span class="dot"></span><div><span class="cred-line">${c.l}</span>${c.file?` <a class="cred-link" href="${c.file}" target="_blank" rel="noopener">${t.cred_view}</a>`:''}${c.s?`<span class="cred-sub">${c.s}</span>`:''}</div></li>`);
   document.getElementById('langs-line').textContent = t.langs_line;
+
+  document.getElementById('wa-link').href = 'https://wa.me/201026286048?text=' + encodeURIComponent(t.wa_prefill);
 
   document.querySelectorAll('.copybtn').forEach(b=> b.textContent = t.copy);
 
