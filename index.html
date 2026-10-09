@@ -232,6 +232,67 @@
     display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
     background:var(--panel-strong);
   }
+
+  /* AI chat widget */
+  .ai-fab{
+    position:fixed; inset-inline-end:20px; inset-block-end:20px; z-index:60;
+    display:flex; align-items:center; gap:8px; padding:12px 18px; border-radius:999px;
+    background:var(--accent); color:var(--bg); border:0; cursor:pointer;
+    font-family:var(--font-body); font-size:.88rem; font-weight:600;
+    box-shadow:0 8px 24px rgba(0,0,0,.45);
+  }
+  .ai-fab:hover{transform:translateY(-1px)}
+  .ai-fab .dot{width:7px; height:7px; border-radius:50%; background:var(--bg); opacity:.6}
+  .ai-panel{
+    position:fixed; inset-inline-end:20px; inset-block-end:86px; z-index:60;
+    width:min(360px, calc(100vw - 40px)); max-height:min(520px, 70vh);
+    background:var(--panel-strong); border:1px solid var(--rule); border-radius:10px;
+    display:flex; flex-direction:column; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.55);
+  }
+  .ai-panel[hidden]{display:none}
+  .ai-panel-head{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:14px 16px; border-bottom:1px solid var(--rule); flex:none;
+  }
+  .ai-panel-head h3{font-size:.98rem; font-family:var(--font-body); font-weight:600}
+  .ai-close{
+    background:transparent; border:0; color:var(--ink-muted); font-size:1.1rem; cursor:pointer; line-height:1; padding:2px 6px;
+  }
+  .ai-close:hover{color:var(--ink)}
+  .ai-panel-body{
+    flex:1; overflow-y:auto; padding:14px 16px; display:flex; flex-direction:column; gap:10px; font-size:.9rem;
+  }
+  .ai-msg{max-width:85%; padding:9px 12px; border-radius:8px; line-height:1.55; white-space:pre-wrap}
+  .ai-msg.user{align-self:flex-end; background:var(--ink); color:var(--bg)}
+  .ai-msg.bot{align-self:flex-start; background:var(--bg-raised); color:var(--ink); border:1px solid var(--rule)}
+  .ai-msg.pending{color:var(--ink-muted); font-style:italic}
+  .ai-disclaimer{font-size:.72rem; color:var(--ink-muted); padding:0 16px 10px; flex:none}
+  .ai-panel-foot{display:flex; gap:8px; padding:12px; border-top:1px solid var(--rule); flex:none}
+  .ai-panel-foot input{
+    flex:1; font-family:var(--font-body); font-size:.9rem; padding:9px 12px; border:1px solid var(--rule);
+    border-radius:6px; background:var(--bg); color:var(--ink);
+  }
+  .ai-panel-foot button{
+    font-family:var(--font-body); font-size:.85rem; font-weight:600; padding:9px 14px; border-radius:6px;
+    background:var(--accent); color:var(--bg); border:0; cursor:pointer; white-space:nowrap;
+  }
+  .ai-panel-foot button:disabled{opacity:.5; cursor:default}
+  @media (max-width:480px){
+    .ai-fab{inset-inline-end:16px; inset-block-end:16px}
+    .ai-panel{inset-inline-end:16px; inset-block-end:82px; width:calc(100vw - 32px)}
+  }
+
+  /* runway AI insight */
+  .runway-ai{margin-top:18px}
+  .runway-ai-btn{
+    font-family:var(--font-body); font-size:.85rem; font-weight:600; padding:9px 16px; border-radius:4px;
+    background:transparent; color:var(--accent); border:1px solid var(--accent); cursor:pointer;
+  }
+  .runway-ai-btn:hover{background:rgba(231,183,104,.1)}
+  .runway-ai-btn:disabled{opacity:.5; cursor:default}
+  .runway-ai-result{margin-top:14px; font-size:.92rem; color:var(--ink); line-height:1.6; display:none}
+  .runway-ai-result.show{display:block}
+  .runway-ai-result.pending{color:var(--ink-muted); font-style:italic}
 </style>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -373,6 +434,10 @@
         <div class="bar-track"><div class="bar-fill" id="runwayBar"></div></div>
       </div>
       <p class="tool-note" data-i18n="tool_note">Rough guide only — it assumes burn stays flat and ignores incoming receivables.</p>
+      <div class="runway-ai">
+        <button class="runway-ai-btn" id="runwayAiBtn" onclick="getRunwayInsight()" data-i18n="runway_ai_btn">Get AI insight</button>
+        <div class="runway-ai-result" id="runwayAiResult"></div>
+      </div>
     </div>
   </section>
 
@@ -417,6 +482,23 @@
   <span data-i18n="footer_role">Ahmed Adel Mohammed — Accounting Manager · Portfolio, 2026</span>
   <span>© 2026</span>
 </footer>
+
+<button class="ai-fab" id="aiFab" onclick="toggleAiPanel()">
+  <span class="dot"></span><span data-i18n="ai_fab">Ask AI about my experience</span>
+</button>
+
+<div class="ai-panel" id="aiPanel" hidden>
+  <div class="ai-panel-head">
+    <h3 data-i18n="ai_panel_title">Ask about Ahmed's experience</h3>
+    <button class="ai-close" onclick="toggleAiPanel()" aria-label="Close">×</button>
+  </div>
+  <div class="ai-panel-body" id="aiPanelBody"></div>
+  <p class="ai-disclaimer" data-i18n="ai_disclaimer">AI assistant — answers are generated from Ahmed's CV data and may be imperfect.</p>
+  <div class="ai-panel-foot">
+    <input id="aiInput" type="text" placeholder="Type a question…" onkeydown="if(event.key==='Enter')sendAiMessage()">
+    <button id="aiSendBtn" onclick="sendAiMessage()" data-i18n="ai_send">Send</button>
+  </div>
+</div>
 
 <script>
 const T = {
@@ -496,7 +578,18 @@ en: {
   contact_wa_k:"WhatsApp", contact_wa_v:"Chat on WhatsApp",
   wa_prefill:"Hi Ahmed, I saw your portfolio and would like to get in touch.",
   copy:"Copy", copied:"Copied",
-  footer_role:"Ahmed Adel Mohammed — Accounting Manager · Portfolio, 2026"
+  footer_role:"Ahmed Adel Mohammed — Accounting Manager · Portfolio, 2026",
+  ai_fab:"Ask AI about my experience",
+  ai_panel_title:"Ask about Ahmed's experience",
+  ai_greeting:"Hi — ask me anything about Ahmed's work experience, skills, or certifications. I'll answer from his CV.",
+  ai_placeholder:"Type a question…",
+  ai_send:"Send",
+  ai_thinking:"Thinking…",
+  ai_disclaimer:"AI assistant — answers are generated from Ahmed's CV data and may be imperfect.",
+  ai_error:"The AI isn't connected yet, or hit a temporary issue. You can reach Ahmed directly via the Contact section below.",
+  runway_ai_btn:"Get AI insight",
+  runway_ai_thinking:"Analyzing…",
+  runway_ai_error:"Couldn't get an AI insight right now — the AI may not be connected yet."
 },
 ar: {
   nav_approach:"نهجي", nav_work:"الخبرات", nav_about:"نبذة", nav_contact:"تواصل",
@@ -574,7 +667,18 @@ ar: {
   contact_wa_k:"واتساب", contact_wa_v:"راسلني على واتساب",
   wa_prefill:"أهلاً أحمد، شفت موقعك وحابب أتواصل معاك.",
   copy:"نسخ", copied:"تم النسخ",
-  footer_role:"أحمد عادل محمد — مدير حسابات · بورتفوليو، 2026"
+  footer_role:"أحمد عادل محمد — مدير حسابات · بورتفوليو، 2026",
+  ai_fab:"اسأل الـ AI عن خبرتي",
+  ai_panel_title:"اسأل عن خبرة أحمد",
+  ai_greeting:"أهلاً — اسألني أي سؤال عن خبرة أحمد الوظيفية أو مهاراته أو شهاداته، وهرد عليك من بيانات سيرته الذاتية.",
+  ai_placeholder:"اكتب سؤالك…",
+  ai_send:"إرسال",
+  ai_thinking:"بيفكر…",
+  ai_disclaimer:"مساعد ذكاء اصطناعي — الإجابات مبنية على بيانات السيرة الذاتية لأحمد وممكن تكون غير دقيقة أحيانًا.",
+  ai_error:"الـ AI مش متصل لسه، أو حصلت مشكلة مؤقتة. تقدر تتواصل مع أحمد مباشرة من قسم التواصل تحت.",
+  runway_ai_btn:"تحليل بالذكاء الاصطناعي",
+  runway_ai_thinking:"بيحلل…",
+  runway_ai_error:"مقدرتش أجيب تحليل دلوقتي — ممكن الـ AI مش متصل لسه."
 }
 };
 
@@ -621,7 +725,14 @@ function render(lang){
 
   document.querySelectorAll('.copybtn').forEach(b=> b.textContent = t.copy);
 
+  const aiInputEl = document.getElementById('aiInput');
+  if (aiInputEl) aiInputEl.placeholder = t.ai_placeholder;
+
+  const runwayResultEl = document.getElementById('runwayAiResult');
+  if (runwayResultEl) runwayResultEl.classList.remove('show', 'pending');
+
   currentLang = lang;
+  resetAiConversation();
   updateRunway();
 }
 
@@ -655,9 +766,111 @@ function updateRunway(){
   document.getElementById('runwayFigure').textContent = months.toFixed(1) + ' ' + t.tool_months;
   const pct = Math.max(0, Math.min(100, (months/24)*100));
   document.getElementById('runwayBar').style.width = pct + '%';
+  const resultEl = document.getElementById('runwayAiResult');
+  if (resultEl) resultEl.classList.remove('show', 'pending');
 }
 document.getElementById('cashInput').addEventListener('input', updateRunway);
 document.getElementById('burnInput').addEventListener('input', updateRunway);
+
+/* ---- AI chat widget ---- */
+let aiMessages = [];
+let aiPanelOpen = false;
+
+function toggleAiPanel(){
+  aiPanelOpen = !aiPanelOpen;
+  document.getElementById('aiPanel').hidden = !aiPanelOpen;
+  if (aiPanelOpen) document.getElementById('aiInput').focus();
+}
+
+function resetAiConversation(){
+  aiMessages = [];
+  const body = document.getElementById('aiPanelBody');
+  if (!body) return;
+  body.innerHTML = '';
+  appendAiBubble('bot', T[currentLang].ai_greeting);
+}
+
+function appendAiBubble(role, text, pending){
+  const body = document.getElementById('aiPanelBody');
+  const div = document.createElement('div');
+  div.className = 'ai-msg ' + (role === 'user' ? 'user' : 'bot') + (pending ? ' pending' : '');
+  div.textContent = text;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+  return div;
+}
+
+async function sendAiMessage(){
+  const input = document.getElementById('aiInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const t = T[currentLang];
+  const sendBtn = document.getElementById('aiSendBtn');
+
+  appendAiBubble('user', text);
+  aiMessages.push({ role: 'user', content: text });
+  input.value = '';
+  input.disabled = true;
+  sendBtn.disabled = true;
+  const pendingBubble = appendAiBubble('bot', t.ai_thinking, true);
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ mode: 'chat', lang: currentLang, messages: aiMessages })
+    });
+    const data = await res.json();
+    pendingBubble.remove();
+    if (data.error || !data.text) {
+      appendAiBubble('bot', t.ai_error);
+    } else {
+      appendAiBubble('bot', data.text);
+      aiMessages.push({ role: 'assistant', content: data.text });
+    }
+  } catch (e) {
+    pendingBubble.remove();
+    appendAiBubble('bot', t.ai_error);
+  } finally {
+    input.disabled = false;
+    sendBtn.disabled = false;
+    input.focus();
+  }
+}
+
+/* ---- Runway AI insight ---- */
+async function getRunwayInsight(){
+  const t = T[currentLang];
+  const cash = parseFloat(document.getElementById('cashInput').value) || 0;
+  const burn = parseFloat(document.getElementById('burnInput').value) || 0;
+  const btn = document.getElementById('runwayAiBtn');
+  const resultEl = document.getElementById('runwayAiResult');
+
+  btn.disabled = true;
+  resultEl.textContent = t.runway_ai_thinking;
+  resultEl.classList.add('show', 'pending');
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ mode: 'runway', lang: currentLang, cash, burn })
+    });
+    const data = await res.json();
+    if (data.error || !data.text) {
+      resultEl.textContent = t.runway_ai_error;
+      resultEl.classList.remove('pending');
+    } else {
+      resultEl.textContent = data.text;
+      resultEl.classList.remove('pending');
+    }
+  } catch (e) {
+    resultEl.textContent = t.runway_ai_error;
+    resultEl.classList.remove('pending');
+  } finally {
+    btn.disabled = false;
+  }
+}
 
 render('en');
 </script>
