@@ -247,6 +247,23 @@
   }
   .copybtn:hover{border-color:var(--accent); color:var(--accent)}
 
+  .contact-form{margin-top:34px; padding-top:28px; border-top:1px solid var(--rule); max-width:46em}
+  .contact-form .form-head{font-family:var(--font-mono); font-size:.82rem; color:var(--ink-muted); margin-bottom:16px}
+  .contact-form .field{margin-bottom:16px}
+  .contact-form textarea{
+    width:100%; font-family:inherit; font-size:.95rem; padding:10px 12px; border:1px solid var(--rule);
+    border-radius:4px; background:var(--bg); color:var(--ink); resize:vertical; min-height:96px;
+  }
+  .contact-form input{
+    width:100%; font-family:inherit; font-size:.95rem; padding:10px 12px; border:1px solid var(--rule);
+    border-radius:4px; background:var(--bg); color:var(--ink);
+  }
+  .contact-form button[type="submit"]{font-family:inherit; font-size:.92rem}
+  .contact-form button[type="submit"]:disabled{opacity:.6; cursor:default}
+  .contact-form-status{margin-top:12px; font-size:.88rem; min-height:1.3em}
+  .contact-form-status.ok{color:var(--accent-2)}
+  .contact-form-status.err{color:var(--accent)}
+
   footer.site{
     padding-block:32px; padding-inline:20px; border-top:1px solid var(--rule); font-size:.85rem; color:var(--ink-muted);
     display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
@@ -512,6 +529,26 @@
         <a class="v" href="Ahmed-Adel-Mohammed-CV.pdf" download data-i18n="contact_cv_v">Download PDF</a>
       </div>
     </div>
+
+    <form class="contact-form" id="contactForm" onsubmit="return submitContactForm(event)">
+      <p class="form-head" data-i18n="contact_form_h">Or send a message directly</p>
+      <input type="hidden" name="access_key" value="WEB3FORMS_ACCESS_KEY">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+      <div class="field">
+        <label for="cfName" data-i18n="contact_form_name">Name</label>
+        <input id="cfName" name="name" type="text" required>
+      </div>
+      <div class="field">
+        <label for="cfEmail" data-i18n="contact_form_email">Your email</label>
+        <input id="cfEmail" name="email" type="email" required>
+      </div>
+      <div class="field">
+        <label for="cfMessage" data-i18n="contact_form_message">Message</label>
+        <textarea id="cfMessage" name="message" required></textarea>
+      </div>
+      <button class="btn primary" type="submit" id="cfSubmitBtn" data-i18n="contact_form_send">Send message</button>
+      <p class="contact-form-status" id="cfStatus"></p>
+    </form>
   </section>
 
 </main>
@@ -635,6 +672,11 @@ en: {
   contact_cv_k:"CV", contact_cv_v:"Download PDF",
   contact_wa_k:"WhatsApp", contact_wa_v:"Chat on WhatsApp",
   wa_prefill:"Hi Ahmed, I saw your portfolio and would like to get in touch.",
+  contact_form_h:"Or send a message directly",
+  contact_form_name:"Name", contact_form_email:"Your email", contact_form_message:"Message",
+  contact_form_send:"Send message", contact_form_sending:"Sending…",
+  contact_form_success:"Thanks — your message is on its way. I'll get back to you soon.",
+  contact_form_error:"Couldn't send that right now — please email or WhatsApp me directly instead.",
   copy:"Copy", copied:"Copied",
   footer_role:"Ahmed Adel Mohammed — Accounting Manager · Portfolio, 2026",
   ai_fab:"Ask AI about my experience",
@@ -744,6 +786,11 @@ ar: {
   contact_cv_k:"السيرة الذاتية", contact_cv_v:"تحميل PDF",
   contact_wa_k:"واتساب", contact_wa_v:"راسلني على واتساب",
   wa_prefill:"أهلاً أحمد، شفت موقعك وحابب أتواصل معاك.",
+  contact_form_h:"أو ابعت رسالة مباشرة",
+  contact_form_name:"الاسم", contact_form_email:"بريدك الإلكتروني", contact_form_message:"الرسالة",
+  contact_form_send:"إرسال الرسالة", contact_form_sending:"جاري الإرسال…",
+  contact_form_success:"تم الإرسال — رسالتك في طريقها. هرد عليك قريب.",
+  contact_form_error:"مقدرتش أبعت الرسالة دلوقتي — تواصل معايا مباشرة عبر الإيميل أو واتساب.",
   copy:"نسخ", copied:"تم النسخ",
   footer_role:"أحمد عادل محمد — مدير حسابات · بورتفوليو، 2026",
   ai_fab:"اسأل الـ AI عن خبرتي",
@@ -814,6 +861,9 @@ function render(lang){
 
   document.querySelectorAll('.copybtn').forEach(b=> b.textContent = t.copy);
 
+  const cfStatusEl = document.getElementById('cfStatus');
+  if (cfStatusEl) { cfStatusEl.textContent = ''; cfStatusEl.className = 'contact-form-status'; }
+
   const aiInputEl = document.getElementById('aiInput');
   if (aiInputEl) aiInputEl.placeholder = t.ai_placeholder;
 
@@ -860,6 +910,59 @@ function updateRunway(){
 }
 document.getElementById('cashInput').addEventListener('input', updateRunway);
 document.getElementById('burnInput').addEventListener('input', updateRunway);
+
+/* ---- contact form (Web3Forms — no backend needed) ---- */
+async function submitContactForm(event){
+  event.preventDefault();
+  const form = document.getElementById('contactForm');
+  const btn = document.getElementById('cfSubmitBtn');
+  const status = document.getElementById('cfStatus');
+  const t = T[currentLang];
+
+  const accessKey = form.access_key.value;
+  if (!accessKey || accessKey === 'WEB3FORMS_ACCESS_KEY') {
+    status.textContent = t.contact_form_error;
+    status.className = 'contact-form-status err';
+    return false;
+  }
+
+  btn.disabled = true;
+  const originalLabel = btn.textContent;
+  btn.textContent = t.contact_form_sending;
+  status.textContent = '';
+  status.className = 'contact-form-status';
+
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        access_key: accessKey,
+        name: form.name.value,
+        email: form.email.value,
+        message: form.message.value,
+        subject: 'New message from the portfolio site',
+        botcheck: form.botcheck.checked,
+      }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      status.textContent = t.contact_form_success;
+      status.className = 'contact-form-status ok';
+      form.reset();
+    } else {
+      status.textContent = t.contact_form_error;
+      status.className = 'contact-form-status err';
+    }
+  } catch (err) {
+    status.textContent = t.contact_form_error;
+    status.className = 'contact-form-status err';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalLabel;
+  }
+  return false;
+}
 
 /* ---- AI chat widget ---- */
 let aiMessages = [];
