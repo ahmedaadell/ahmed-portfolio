@@ -194,6 +194,8 @@
   .cred-list .dot{width:5px; height:5px; border-radius:50%; background:var(--accent-2); flex:none; margin-top:9px}
   .cred-line{color:var(--ink)}
   .cred-sub{display:block; font-size:.85rem; color:var(--ink-muted); margin-top:2px}
+  .cred-link{margin-inline-start:8px; font-size:.78rem; font-family:var(--font-mono); color:var(--accent); text-decoration:none; border-bottom:1px solid transparent; white-space:nowrap}
+  .cred-link:hover{border-bottom-color:var(--accent)}
   .langs{margin-top:20px; font-size:.9rem; color:var(--ink-muted)}
 
   /* tool */
@@ -436,12 +438,13 @@ en: {
   skills:["Financial Reporting","Cash Flow & Treasury","Month-End & Year-End Close","Budgeting & Forecasting","Internal Controls","Receivables, Collections & Cheques","Cost Control","Financial Modeling (IRR / NPV)","AP / AR","IFRS","VAT","Zakat","E-Invoicing","Team Leadership (up to 7)"],
   cred_h:"Certifications & education",
   creds:[
-    {l:"Private Equity and Venture Capital", s:"ExecuFinity / International Accreditation Organization — Oct 2026"},
+    {l:"Private Equity and Venture Capital", s:"ExecuFinity / International Accreditation Organization — Oct 2026", file:"Ahmed-Adel-Mohammed-Certificate-Private-Equity-Venture-Capital.pdf"},
     {l:"Cash Flow Mastery for Scaling Businesses", s:"ExecuFinity — Oct 2026"},
     {l:"Preparing External Financial Reports", s:"CMA preparation track — in progress"},
     {l:"Accounting & Financial Management · Financial Accounting · Accounting Fundamentals", s:""},
     {l:"Bachelor of Commerce, Accounting", s:"Helwan University, Cairo — 2020"}
   ],
+  cred_view:"View certificate",
   langs_line:"Languages: Arabic — native · English — professional working proficiency",
   tool_h:"A quick one: how long does your cash last?",
   tool_lead:"Cash on hand divided by monthly burn equals runway. The models I build for clients go further — scenarios, financing, seasonality — but this is the first number worth knowing.",
@@ -511,12 +514,13 @@ ar: {
   skills:["تقارير مالية","تدفقات نقدية وخزينة","إقفال شهري وسنوي","موازنات وتنبؤات","ضوابط داخلية","مديونيات وتحصيل وشيكات","ضبط التكلفة","نمذجة مالية (IRR / NPV)","حسابات دائنة ومدينة","IFRS","ضريبة القيمة المضافة","الزكاة","الفاتورة الإلكترونية","قيادة فرق (حتى 7 أفراد)"],
   cred_h:"الشهادات والتعليم",
   creds:[
-    {l:"Private Equity and Venture Capital", s:"ExecuFinity / International Accreditation Organization — أكتوبر 2026"},
+    {l:"Private Equity and Venture Capital", s:"ExecuFinity / International Accreditation Organization — أكتوبر 2026", file:"Ahmed-Adel-Mohammed-Certificate-Private-Equity-Venture-Capital.pdf"},
     {l:"Cash Flow Mastery for Scaling Businesses", s:"ExecuFinity — أكتوبر 2026"},
     {l:"إعداد التقارير المالية الخارجية", s:"ضمن مسار التحضير لشهادة CMA — قيد الإنجاز"},
     {l:"المحاسبة والإدارة المالية · المحاسبة المالية · أساسيات المحاسبة", s:""},
     {l:"بكالوريوس تجارة، محاسبة", s:"جامعة حلوان، القاهرة — 2020"}
   ],
+  cred_view:"عرض الشهادة",
   langs_line:"اللغات: العربية — اللغة الأم · الإنجليزية — كفاءة مهنية",
   tool_h:"سؤال سريع: كم تدوم سيولتك؟",
   tool_lead:"النقدية المتاحة ÷ متوسط الصرف الشهري = مدة الاستمرارية. النماذج التي أبنيها للعملاء تذهب لأبعد من ذلك — سيناريوهات وتمويل وموسمية — لكن هذا أول رقم يستحق المعرفة.",
@@ -569,7 +573,7 @@ function render(lang){
     </div>`);
   renderList('systems-pills', t.systems, s=>`<span class="pill">${s}</span>`);
   renderList('skills-pills', t.skills, s=>`<span class="pill">${s}</span>`);
-  renderList('cred-list', t.creds, c=>`<li><span class="dot"></span><div><span class="cred-line">${c.l}</span>${c.s?`<span class="cred-sub">${c.s}</span>`:''}</div></li>`);
+  renderList('cred-list', t.creds, c=>`<li><span class="dot"></span><div><span class="cred-line">${c.l}</span>${c.file?` <a class="cred-link" href="${c.file}" target="_blank" rel="noopener">${t.cred_view}</a>`:''}${c.s?`<span class="cred-sub">${c.s}</span>`:''}</div></li>`);
   document.getElementById('langs-line').textContent = t.langs_line;
 
   document.querySelectorAll('.copybtn').forEach(b=> b.textContent = t.copy);
